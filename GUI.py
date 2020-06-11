@@ -1,13 +1,13 @@
 import tkinter as tk
 
-# Global variable flags that persist through the event loop
-# used in handle_drag and handle_click
+# Global variable flags that persist through the event loop,
+# used in the event handlers
 current_widget = None
 initial_click = None
 initial_black = False
 
 def handle_drag(event):
-    """Change color of the spot that is dragged over.
+    """Event handler that changes the color of the spot that is dragged over.
     Implementation inspired by this source:
     https://stackoverflow.com/
     questions/51369844/how-to-trigger-tkinters-enter-event-with-mouse-down"""
@@ -22,7 +22,7 @@ def handle_drag(event):
                 current_widget["bg"] = "#d9d9d9"
 
 def handle_click(event):
-    """Change color of the spot that is clicked."""
+    """Event handler that changes the  color of the spot that is clicked."""
     global initial_click
     global initial_black
     initial_click = event.widget
@@ -34,7 +34,8 @@ def handle_click(event):
         initial_black = False
 
 def track_position(event):
-    """Updates the current grid position in x and y coordinates."""
+    """Event handler that updates the current grid position in
+    x and y coordinates."""
     widget = event.widget
     print(f"{event.x_root}, {event.y}")
 
