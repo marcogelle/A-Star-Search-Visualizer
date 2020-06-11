@@ -12,8 +12,8 @@ for r in range(20):
             height=30
         )
         frm.grid(row=r, column=c)
-        btn = Button(master=frm)
-        btn.pack(fill="both")
+        btn = Button(master=frm, relief=FLAT)
+        btn.pack()
 
 
 window.mainloop()
