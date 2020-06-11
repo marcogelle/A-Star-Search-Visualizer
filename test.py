@@ -1,22 +1,20 @@
-from tkinter import *
+import tkinter as tk
 
-window = Tk()
+window = tk.Tk()
 
-label = Label(window, text="Hello World!", fg="white", bg="black")
-label.pack()
+frame_a = tk.Frame()
+frame_b = tk.Frame()
 
-button = Button(
-    text="click me?",
-    width=25,
-    height=5,
-    bg="black",
-    fg="white"
-)
-button.pack()
+label_a = tk.Label(master=frame_a, text="I'm in Frame A")
+label_a.pack()
 
-entry = Entry(fg="white", bg="black", width=50)
-entry.pack()
+label_b = tk.Label(master=frame_b, text="I'm in Frame B")
+label_b.pack()
 
-entry.insert(0, "reee")
+frame_a.pack(fill=tk.X)
+frame_b.pack()
+
+button_a = tk.Button(master=frame_a, text="I'm a button")
+button_a.pack(fill=tk.X)
 
 window.mainloop()
