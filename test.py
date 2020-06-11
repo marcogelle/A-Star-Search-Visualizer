@@ -17,5 +17,6 @@ button.pack()
 entry = Entry(fg="white", bg="black", width=50)
 entry.pack()
 
+entry.insert(0, "reee")
 
 window.mainloop()
