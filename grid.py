@@ -30,13 +30,13 @@ window = tk.Tk()
 
 frm_input = tk.Frame(master=window)
 
-lbl_start = tk.Label(master=frm_input, font="Helvetica 11 bold",
+lbl_start = tk.Button(master=frm_input, font="Helvetica 11 bold",
     text="Start ")
 lbl_start_x = tk.Label(master=frm_input, text="X:")
 ent_start_x = tk.Entry(master=frm_input, width=5)
 lbl_start_y = tk.Label(master=frm_input, text="Y:")
 ent_start_y = tk.Entry(master=frm_input, width=5)
-lbl_stop = tk.Label(master=frm_input, font="Helvetica 11 bold",
+lbl_stop = tk.Button(master=frm_input, font="Helvetica 11 bold",
     text="Destination ")
 lbl_stop_x = tk.Label(master=frm_input, text="X:")
 ent_stop_x = tk.Entry(master=frm_input, width=5)
@@ -54,13 +54,25 @@ ent_stop_x.pack(side=tk.LEFT)
 lbl_stop_y.pack(side=tk.LEFT)
 ent_stop_y.pack(side=tk.LEFT)
 
+btn_Astar = tk.Button(master=frm_input, text="Start A* Search",
+    bg="#2f4454", fg="white")
+btn_Astar.pack(side=tk.LEFT, padx=(20,0))
 
+lbl_x = tk.Label(master=frm_input, text="x:")
+lbl_hover_x = tk.Label(master=frm_input, text="?")
+lbl_y = tk.Label(master=frm_input, text="y:")
+lbl_hover_y = tk.Label(master=frm_input, text="?")
+
+lbl_x.pack(side=tk.LEFT, padx=(100,0))
+lbl_hover_x.pack(side=tk.LEFT)
+lbl_y.pack(side=tk.LEFT)
+lbl_hover_y.pack(side=tk.LEFT)
 
 frm_input.pack()
 
 
 frm_grid = tk.Frame(master=window)
-for r in range(1, 1 + 25):
+for r in range(1, 1 + 20):
     for c in range(35):
         frm = tk.Frame(
             master=frm_grid,
