@@ -1,5 +1,7 @@
 import tkinter as tk
 
+NUM_ROWS, NUM_COLS = 20, 35
+
 # Global variable flags that persist through the event loop,
 # used in the event handlers
 current_widget = None
@@ -86,8 +88,8 @@ def draw_top_bar(root):
 def draw_grid(root):
     """Creates the grid."""
     frm_grid = tk.Frame(master=root)
-    for r in range(20):
-        for c in range(35):
+    for r in range(NUM_ROWS):
+        for c in range(NUM_COLS):
             frm = tk.Frame(
                 master=frm_grid,
                 relief=tk.RAISED,
@@ -99,6 +101,8 @@ def draw_grid(root):
             frm.bind("<Button-1>", handle_click)
             frm.bind("<B1-Motion>", handle_drag)
             frm.bind("<Enter>", track_position)
+
+            node = Node(frm, c+1, NUM_ROWS-r)
     frm_grid.pack()
 
 def main():
