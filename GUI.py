@@ -1,7 +1,10 @@
 import tkinter as tk
 
+# Global variable flags that persist through the event loop
+# used in handle_drag and handle_click
 current_widget = None
 initial_click = None
+initial_black = False
 
 def handle_drag(event):
     """Change color of the spot that is dragged over.
@@ -12,21 +15,31 @@ def handle_drag(event):
     widget = event.widget.winfo_containing(event.x_root, event.y_root)
     if current_widget != widget and widget != initial_click:
         current_widget = widget
-        if current_widget["bg"] == "#d9d9d9":
-            current_widget["bg"] = "black"
-        elif current_widget["bg"] == "black":
-            current_widget["bg"] = "#d9d9d9"
+        if current_widget["bg"] == "black" or current_widget["bg"] == "#d9d9d9":
+            if initial_black:
+                current_widget["bg"] = "black"
+            else:
+                current_widget["bg"] = "#d9d9d9"
 
 def handle_click(event):
-    """Change color of the spot that is clicked"""
+    """Change color of the spot that is clicked."""
     global initial_click
+    global initial_black
     initial_click = event.widget
     if initial_click["bg"] == "#d9d9d9":
         initial_click["bg"] = "black"
+        initial_black = True
     elif initial_click["bg"] == "black":
         initial_click["bg"] = "#d9d9d9"
+        initial_black = False
+
+def track_position(event):
+    """Updates the current grid position in x and y coordinates."""
+    widget = event.widget
+    print(f"{event.x_root}, {event.y}")
 
 def draw_top_bar(root):
+    """Sets up all widgets for the top bar of the UI."""
     frm_input = tk.Frame(master=root)
 
     lbl_start = tk.Button(master=frm_input, font="Helvetica 11 bold",
@@ -70,8 +83,9 @@ def draw_top_bar(root):
     frm_input.pack()
 
 def draw_grid(root):
+    """Creates the grid."""
     frm_grid = tk.Frame(master=root)
-    for r in range(1, 1 + 20):
+    for r in range(20):
         for c in range(35):
             frm = tk.Frame(
                 master=frm_grid,
@@ -83,6 +97,7 @@ def draw_grid(root):
             frm.grid(row=r, column=c)
             frm.bind("<Button-1>", handle_click)
             frm.bind("<B1-Motion>", handle_drag)
+            frm.bind("<Enter>", track_position)
     frm_grid.pack()
 
 def main():
