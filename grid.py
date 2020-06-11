@@ -1,19 +1,22 @@
-from tkinter import *
+import tkinter as tk
 
-window = Tk()
+def handle_click(event):
+    """Print the character associated to the key pressed"""
+    btn = event.widget
+    btn["bg"] = "black"
+
+window = tk.Tk()
 
 for r in range(20):
     for c in range(35):
-        frm = Frame(
+        frm = tk.Frame(
             master=window,
-            relief=RAISED,
+            relief=tk.RAISED,
             borderwidth=1,
             width=30,
             height=30
         )
         frm.grid(row=r, column=c)
-        btn = Button(master=frm, relief=FLAT)
-        btn.pack()
-
+        frm.bind("<Button-1>", handle_click)
 
 window.mainloop()
