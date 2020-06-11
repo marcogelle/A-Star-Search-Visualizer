@@ -14,6 +14,8 @@ button = Button(
 )
 button.pack()
 
-entry = tk.Entry(fg="white", bg="black", width=50)
+entry = Entry(fg="white", bg="black", width=50)
+entry.pack()
+
 
 window.mainloop()
