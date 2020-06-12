@@ -20,7 +20,8 @@ class GUI:
         """Event handler that changes the color of the spot that
         is dragged over."""
         widget = event.widget.winfo_containing(event.x_root, event.y_root)
-        if self.current_widget != widget and widget != self.initial_click:
+        if (self.current_widget != widget and widget != self.initial_click
+            and self.node_map.contains_widget(widget)):
             self.current_widget = widget
             if (self.current_widget["bg"] == "black"
                 or self.current_widget["bg"] == "#d9d9d9"):
@@ -31,8 +32,6 @@ class GUI:
 
     def handle_click(self, event):
         """Event handler that changes the  color of the spot that is clicked."""
-        # global initial_click
-        # global initial_black
         self.initial_click = event.widget
         if self.initial_click["bg"] == "#d9d9d9":
             self.initial_click["bg"] = "black"
@@ -124,7 +123,7 @@ class GUI:
 
 def main():
     window = tk.Tk()
-    map = NodeMap()
+    map = NodeCollection()
     gui = GUI(window, map)
     window.mainloop()
 

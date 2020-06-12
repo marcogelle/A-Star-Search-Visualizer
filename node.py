@@ -1,4 +1,4 @@
-from constants import *
+from constants import NUM_ROWS
 
 class Node:
     """Represents one square on the grid."""
@@ -17,18 +17,21 @@ class Node:
         return self.y
 
 
-class NodeMap:
-    """A map of all the nodes on the grid."""
+class NodeCollection:
+    """A collection of all the nodes on the grid. Contains a map between
+    coordinates and nodes as well as a set of widgets included."""
     def __init__(self):
         self.dict = {}
+        self.widgets = set()
 
     def add(self, node: Node):
-        """Adds a node into the map."""
+        """Adds a node into the collection."""
         pos = f"{node.get_x()},{node.get_y()}"
         if pos not in self.dict:
             self.dict[pos] = node
         else:
-            raise TypeError('Node already exists in this map.')
+            raise TypeError("Node already exists in this map.")
+        self.widgets.add(node.get_frm())
 
     def __get_from_pos(self, x: int, y: int) -> Node:
         return self.dict[f"{x},{y}"]
@@ -38,3 +41,6 @@ class NodeMap:
         info = frame.grid_info()
         row, col = info["row"], info["column"]
         return self.__get_from_pos(col, NUM_ROWS-row-1)
+
+    def contains_widget(self, widget) -> bool:
+        return widget in self.widgets
