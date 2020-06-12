@@ -21,13 +21,12 @@ class Node:
         """Returns a list of a node's neighbors/successors. Starts with the
         top successor and goes clockwise. Does not show diagonal neighbors.
         There are 4 successors total."""
-        x, y = self.get_x, self.get_y
+        x, y = self.get_x(), self.get_y()
         succ = []
-        for dx in [0, 1, 0, -1]:
-            for dy in [1, 0, -1, 0]:
-                next = self.map.get_from_pos(x + dx, y + dy)
-                if next:
-                    succ.append(next)
+        for [dx, dy] in [[0, 1], [1, 0], [0, -1], [-1, 0]]:
+            next = self.map.get_from_pos(x + dx, y + dy)
+            if next:
+                succ.append(next)
         return succ
 
 class NodeCollection:
