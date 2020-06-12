@@ -33,14 +33,14 @@ class NodeCollection:
             raise TypeError("Node already exists in this map.")
         self.widgets.add(node.get_frm())
 
-    def __get_from_pos(self, x: int, y: int) -> Node:
+    def get_from_pos(self, x: int, y: int) -> Node:
         return self.dict[f"{x},{y}"]
 
     def get(self, frame) -> Node:
         """Returns the node for the specified frame widget."""
         info = frame.grid_info()
         row, col = info["row"], info["column"]
-        return self.__get_from_pos(col, NUM_ROWS-row-1)
+        return self.get_from_pos(col, NUM_ROWS-row-1)
 
     def contains_widget(self, widget) -> bool:
         return widget in self.widgets
