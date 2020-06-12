@@ -1,2 +1,3 @@
 # The dimensions of the grid
-NUM_ROWS, NUM_COLS = 20, 35
+NUM_ROWS = 20
+NUM_COLS = 35

@@ -52,12 +52,12 @@ class GUI:
     def draw_top_bar(self):
         """Sets up all widgets for the top bar of the UI."""
         frm_input = tk.Frame(master=self.root)
-        self.draw_position_input_entries(frm_input)
-        self.draw_start_buttons(frm_input)
-        self.draw_position_tracker(frm_input)
+        self.__draw_position_input_entries(frm_input)
+        self.__draw_start_buttons(frm_input)
+        self.__draw_position_tracker(frm_input)
         frm_input.pack()
 
-    def draw_position_input_entries(self, frame):
+    def __draw_position_input_entries(self, frame):
         """Sets up widgets for inputting the positions of the start and
         the destination of the search algorithm."""
         lbl_start = tk.Button(master=frame, font="Helvetica 11 bold",
@@ -84,13 +84,13 @@ class GUI:
         lbl_stop_y.pack(side=tk.LEFT)
         ent_stop_y.pack(side=tk.LEFT)
 
-    def draw_start_buttons(self, frame):
+    def __draw_start_buttons(self, frame):
         """Creates a button for starting the A* search."""
         btn_Astar = tk.Button(master=frame, text="Start A* Search",
             bg="#2f4454", fg="white")
         btn_Astar.pack(side=tk.LEFT, padx=(20,0))
 
-    def draw_position_tracker(self, frame):
+    def __draw_position_tracker(self, frame):
         """Creates the labels that show the coordinates of where
         the cursor is hovering."""
         lbl_x = tk.Label(master=frame, text="x:")
@@ -119,7 +119,7 @@ class GUI:
                 frm.bind("<Button-1>", self.handle_click)
                 frm.bind("<B1-Motion>", self.handle_drag)
                 frm.bind("<Enter>", lambda event: self.track_position(event))
-                self.node_map.add(Node(frm, c+1, NUM_ROWS-r))
+                self.node_map.add(Node(frm, c, NUM_ROWS-r-1))
         frm_grid.pack()
 
 def main():

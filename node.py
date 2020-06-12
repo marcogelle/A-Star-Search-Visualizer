@@ -37,4 +37,4 @@ class NodeMap:
         """Returns the node for the specified frame widget."""
         info = frame.grid_info()
         row, col = info["row"], info["column"]
-        return self.__get_from_pos(col+1, NUM_ROWS-row)
+        return self.__get_from_pos(col, NUM_ROWS-row-1)
