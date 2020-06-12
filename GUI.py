@@ -33,8 +33,8 @@ class GUI:
                     master=frm_grid,
                     relief=tk.RIDGE,
                     borderwidth=1,
-                    width=30,
-                    height=30
+                    width=SPOT_SIZE,
+                    height=SPOT_SIZE
                 )
                 frm.grid(row=r, column=c)
                 frm.bind("<Button-1>", self.handle_click)
@@ -122,8 +122,8 @@ class GUI:
 
 def main():
     window = tk.Tk()
-    map = NodeCollection()
-    gui = GUI(window, map)
+    all_nodes = NodeCollection()
+    gui = GUI(window, all_nodes)
     window.mainloop()
 
 main()
