@@ -1,5 +1,7 @@
 import tkinter as tk
+from node import *
 
+# The dimensions of the grid
 NUM_ROWS, NUM_COLS = 20, 35
 
 # Global variable flags that persist through the event loop,
@@ -102,7 +104,8 @@ def draw_grid(root):
             frm.bind("<B1-Motion>", handle_drag)
             frm.bind("<Enter>", track_position)
 
-            node = Node(frm, c+1, NUM_ROWS-r)
+            node = Node(frm, c+1, NUM_ROWS-r
+
     frm_grid.pack()
 
 def main():
