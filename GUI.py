@@ -87,7 +87,7 @@ def draw_top_bar(root):
 
     frm_input.pack()
 
-def draw_grid(root):
+def draw_grid(root, node_map):
     """Creates the grid."""
     frm_grid = tk.Frame(master=root)
     for r in range(NUM_ROWS):
@@ -103,15 +103,14 @@ def draw_grid(root):
             frm.bind("<Button-1>", handle_click)
             frm.bind("<B1-Motion>", handle_drag)
             frm.bind("<Enter>", track_position)
-
-            node = Node(frm, c+1, NUM_ROWS-r
-
+            node_map.add(Node(frm, c+1, NUM_ROWS-r))
     frm_grid.pack()
 
 def main():
     window = tk.Tk()
+    map = NodeMap()
     draw_top_bar(window)
-    draw_grid(window)
+    draw_grid(window, map)
     window.mainloop()
 
 main()
