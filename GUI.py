@@ -39,8 +39,8 @@ def track_position(event, node_map):
     """Event handler that updates the current grid position in
     x and y coordinates."""
     widget = event.widget
-    e = node_map.get(widget)
-    print(f"{e.get_x}, {e.get.y}")
+    node = node_map.get(widget)
+    # print(f"{node.get_x},{node.get_y}")
 
 def draw_top_bar(root):
     """Sets up all widgets for the top bar of the UI."""
@@ -75,14 +75,14 @@ def draw_top_bar(root):
     btn_Astar.pack(side=tk.LEFT, padx=(20,0))
 
     lbl_x = tk.Label(master=frm_input, text="x:")
-    lbl_hover_x = tk.Label(master=frm_input, text="?")
+    lbl_current_x = tk.Label(master=frm_input, text="?")
     lbl_y = tk.Label(master=frm_input, text="y:")
-    lbl_hover_y = tk.Label(master=frm_input, text="?")
+    lbl_current_y = tk.Label(master=frm_input, text="?")
 
     lbl_x.pack(side=tk.LEFT, padx=(100,0))
-    lbl_hover_x.pack(side=tk.LEFT)
+    lbl_current_x.pack(side=tk.LEFT)
     lbl_y.pack(side=tk.LEFT)
-    lbl_hover_y.pack(side=tk.LEFT)
+    lbl_current_y.pack(side=tk.LEFT)
 
     frm_input.pack()
 
