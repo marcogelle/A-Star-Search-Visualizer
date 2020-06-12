@@ -1,4 +1,5 @@
 import tkinter as tk
+
 from node import *
 from constants import *
 
@@ -7,6 +8,7 @@ class GUI:
         self.root = root
         self.node_map = node_map
 
+        # Flags for holding info during the event loop. Used by event handlers.
         self.current_widget = None
         self.initial_click = None
         self.initial_black = False
@@ -44,6 +46,8 @@ class GUI:
         x and y coordinates."""
         widget = event.widget
         node = self.node_map.get(widget)
+        self.lbl_mouse_x["text"] = str(node.get_x())
+        self.lbl_mouse_y["text"] = str(node.get_y())
 
     def draw_top_bar(self):
         """Sets up all widgets for the top bar of the UI."""
@@ -54,6 +58,8 @@ class GUI:
         frm_input.pack()
 
     def draw_position_input_entries(self, frame):
+        """Sets up widgets for inputting the positions of the start and
+        the destination of the search algorithm."""
         lbl_start = tk.Button(master=frame, font="Helvetica 11 bold",
             text="Start ")
         lbl_start_x = tk.Label(master=frame, text="X:")
@@ -79,20 +85,23 @@ class GUI:
         ent_stop_y.pack(side=tk.LEFT)
 
     def draw_start_buttons(self, frame):
+        """Creates a button for starting the A* search."""
         btn_Astar = tk.Button(master=frame, text="Start A* Search",
             bg="#2f4454", fg="white")
         btn_Astar.pack(side=tk.LEFT, padx=(20,0))
 
     def draw_position_tracker(self, frame):
+        """Creates the labels that show the coordinates of where
+        the cursor is hovering."""
         lbl_x = tk.Label(master=frame, text="x:")
-        lbl_current_x = tk.Label(master=frame, text="?")
+        self.lbl_mouse_x = tk.Label(master=frame, width=2, text="?")
         lbl_y = tk.Label(master=frame, text="y:")
-        lbl_current_y = tk.Label(master=frame, text="?")
+        self.lbl_mouse_y = tk.Label(master=frame, width=2, text="?")
 
         lbl_x.pack(side=tk.LEFT, padx=(100,0))
-        lbl_current_x.pack(side=tk.LEFT)
+        self.lbl_mouse_x.pack(side=tk.LEFT)
         lbl_y.pack(side=tk.LEFT)
-        lbl_current_y.pack(side=tk.LEFT)
+        self.lbl_mouse_y.pack(side=tk.LEFT)
 
     def draw_grid(self):
         """Creates the grid."""
