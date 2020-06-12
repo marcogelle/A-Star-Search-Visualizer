@@ -1,8 +1,6 @@
 import tkinter as tk
 from node import *
-
-# The dimensions of the grid
-NUM_ROWS, NUM_COLS = 20, 35
+from constants import *
 
 # Global variable flags that persist through the event loop,
 # used in the event handlers
@@ -37,11 +35,12 @@ def handle_click(event):
         initial_click["bg"] = "#d9d9d9"
         initial_black = False
 
-def track_position(event):
+def track_position(event, node_map):
     """Event handler that updates the current grid position in
     x and y coordinates."""
     widget = event.widget
-    print(f"{event.x_root}, {event.y}")
+    e = node_map.get(widget)
+    print(f"{e.get_x}, {e.get.y}")
 
 def draw_top_bar(root):
     """Sets up all widgets for the top bar of the UI."""
@@ -102,7 +101,7 @@ def draw_grid(root, node_map):
             frm.grid(row=r, column=c)
             frm.bind("<Button-1>", handle_click)
             frm.bind("<B1-Motion>", handle_drag)
-            frm.bind("<Enter>", track_position)
+            frm.bind("<Enter>", lambda event: track_position(event, node_map))
             node_map.add(Node(frm, c+1, NUM_ROWS-r))
     frm_grid.pack()
 

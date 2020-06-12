@@ -1,3 +1,5 @@
+from constants import *
+
 class Node:
     """Represents one square on the grid."""
     def __init__(self, frame, x_coord, y_coord):
@@ -28,6 +30,11 @@ class NodeMap:
         else:
             raise TypeError('Node already exists in this map.')
 
-    def get(self, x: int, y: int) -> Node:
-        """Returns the node at the specified location."""
+    def get_from_pos(self, x: int, y: int) -> Node:
         return self.dict[f"{x},{y}"]
+
+    def get(self, frame) -> Node:
+        """Returns the node for the specified frame widget."""
+        info = frame.grid_info()
+        row, col = info["row"], info["column"]
+        return self.get_from_pos(col+1, NUM_ROWS-row)
