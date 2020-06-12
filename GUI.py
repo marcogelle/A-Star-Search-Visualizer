@@ -40,24 +40,28 @@ def track_position(event, node_map):
     x and y coordinates."""
     widget = event.widget
     node = node_map.get(widget)
-    # print(f"{node.get_x},{node.get_y}")
 
 def draw_top_bar(root):
     """Sets up all widgets for the top bar of the UI."""
     frm_input = tk.Frame(master=root)
+    draw_position_input_entries(frm_input)
+    draw_start_buttons(frm_input)
+    draw_position_tracker(frm_input)
+    frm_input.pack()
 
-    lbl_start = tk.Button(master=frm_input, font="Helvetica 11 bold",
+def draw_position_input_entries(frame):
+    lbl_start = tk.Button(master=frame, font="Helvetica 11 bold",
         text="Start ")
-    lbl_start_x = tk.Label(master=frm_input, text="X:")
-    ent_start_x = tk.Entry(master=frm_input, width=5)
-    lbl_start_y = tk.Label(master=frm_input, text="Y:")
-    ent_start_y = tk.Entry(master=frm_input, width=5)
-    lbl_stop = tk.Button(master=frm_input, font="Helvetica 11 bold",
+    lbl_start_x = tk.Label(master=frame, text="X:")
+    ent_start_x = tk.Entry(master=frame, width=5)
+    lbl_start_y = tk.Label(master=frame, text="Y:")
+    ent_start_y = tk.Entry(master=frame, width=5)
+    lbl_stop = tk.Button(master=frame, font="Helvetica 11 bold",
         text="Destination ")
-    lbl_stop_x = tk.Label(master=frm_input, text="X:")
-    ent_stop_x = tk.Entry(master=frm_input, width=5)
-    lbl_stop_y = tk.Label(master=frm_input, text="Y:")
-    ent_stop_y = tk.Entry(master=frm_input, width=5)
+    lbl_stop_x = tk.Label(master=frame, text="X:")
+    ent_stop_x = tk.Entry(master=frame, width=5)
+    lbl_stop_y = tk.Label(master=frame, text="Y:")
+    ent_stop_y = tk.Entry(master=frame, width=5)
 
     lbl_start.pack(side=tk.LEFT, padx=(10,0))
     lbl_start_x.pack(side=tk.LEFT)
@@ -70,21 +74,21 @@ def draw_top_bar(root):
     lbl_stop_y.pack(side=tk.LEFT)
     ent_stop_y.pack(side=tk.LEFT)
 
-    btn_Astar = tk.Button(master=frm_input, text="Start A* Search",
+def draw_start_buttons(frame):
+    btn_Astar = tk.Button(master=frame, text="Start A* Search",
         bg="#2f4454", fg="white")
     btn_Astar.pack(side=tk.LEFT, padx=(20,0))
 
-    lbl_x = tk.Label(master=frm_input, text="x:")
-    lbl_current_x = tk.Label(master=frm_input, text="?")
-    lbl_y = tk.Label(master=frm_input, text="y:")
-    lbl_current_y = tk.Label(master=frm_input, text="?")
+def draw_position_tracker(frame):
+    lbl_x = tk.Label(master=frame, text="x:")
+    lbl_current_x = tk.Label(master=frame, text="?")
+    lbl_y = tk.Label(master=frame, text="y:")
+    lbl_current_y = tk.Label(master=frame, text="?")
 
     lbl_x.pack(side=tk.LEFT, padx=(100,0))
     lbl_current_x.pack(side=tk.LEFT)
     lbl_y.pack(side=tk.LEFT)
     lbl_current_y.pack(side=tk.LEFT)
-
-    frm_input.pack()
 
 def draw_grid(root, node_map):
     """Creates the grid."""
