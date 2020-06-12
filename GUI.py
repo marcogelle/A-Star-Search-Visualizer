@@ -126,4 +126,5 @@ def main():
     gui = GUI(window, all_nodes)
     window.mainloop()
 
-main()
+if __name__ == '__main__':
+    main()
