@@ -46,7 +46,7 @@ class GUI:
                 frm.bind("<Button-1>", self.__handle_click)
                 frm.bind("<B1-Motion>", self.__handle_drag)
                 frm.bind("<Enter>", lambda event: self.__track_position(event))
-                self.node_map.add(Node(frm, c, NUM_ROWS-r-1))
+                self.node_map.add(Node(frm, c, NUM_ROWS-r-1, self.node_map))
         frm_grid.pack()
 
     def __draw_start_input(self, frame):

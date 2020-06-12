@@ -1,11 +1,12 @@
-from constants import NUM_ROWS
+from constants import NUM_ROWS, NUM_COLS
 
 class Node:
     """Represents one square on the grid."""
-    def __init__(self, frame, x_coord, y_coord):
+    def __init__(self, frame, x_coord, y_coord, node_map):
         self.frm = frame
         self.x = x_coord
         self.y = y_coord
+        self.map = node_map
 
     def get_frm(self) -> int:
         return self.frm
@@ -16,6 +17,18 @@ class Node:
     def get_y(self) -> int:
         return self.y
 
+    def get_succ(self):
+        """Returns a list of a node's neighbors/successors. Starts with the
+        top successor and goes clockwise. Does not show diagonal neighbors.
+        There are 4 successors total."""
+        x, y = self.get_x, self.get_y
+        succ = []
+        for dx in [0, 1, 0, -1]:
+            for dy in [1, 0, -1, 0]:
+                next = self.map.get_from_pos(x + dx, y + dy)
+                if next:
+                    succ.append(next)
+        return succ
 
 class NodeCollection:
     """A collection of all the nodes on the grid. Contains a map between
@@ -34,7 +47,10 @@ class NodeCollection:
         self.widgets.add(node.get_frm())
 
     def get_from_pos(self, x: int, y: int) -> Node:
-        return self.dict[f"{x},{y}"]
+        """Returns the node at given coordinates (bottom left is (0,0))."""
+        if x >= 0 and x < NUM_COLS and y >= 0 and y < NUM_ROWS:
+            return self.dict[f"{x},{y}"]
+        return None
 
     def get(self, frame) -> Node:
         """Returns the node for the specified frame widget."""
@@ -43,4 +59,5 @@ class NodeCollection:
         return self.get_from_pos(col, NUM_ROWS-row-1)
 
     def contains_widget(self, widget) -> bool:
+        """Returns True if the given widget is in our collection."""
         return widget in self.widgets
