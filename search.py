@@ -13,7 +13,7 @@ class AStar(AbstractSearch):
     def search(self, start: Node, dest: Node):
         """Performs A* search from start to destination. Returns a path."""
         open = [start]
-        closed = ()
+        closed = set()
         g = {start.pos_str(): 0}
         f = {start.pos_str(): 0 + self.heur(start, dest)}
         parents = {start.pos_str(): None}
@@ -23,7 +23,7 @@ class AStar(AbstractSearch):
             curr = open[0]
             curr_ind = 0
             for i, node in enumerate(open):
-                if f[node.pos_str] < f[curr.pos_str]:
+                if f[node.pos_str()] < f[curr.pos_str()]:
                     curr = node
                     curr_ind = i
             open.pop(curr_ind)
@@ -43,12 +43,12 @@ class AStar(AbstractSearch):
                 if next not in open:
                     parents[next.pos_str()] = curr
                     g[next.pos_str()] = cost
-                    f[next.pos_str()] = cost + self.heur(next, dest)
+                    f[next.pos_str()] = cost + self.heur(next, dest, self.h)
                     open.append(next)
                 elif cost < g[start.pos_str()]:
                     parents[next.pos_str()] = curr
                     g[next.post_str()] = cost
-                    f[next.post_str()] = cost + self.heur(next, dest)
+                    f[next.post_str()] = cost + self.heur(next, dest, self.h)
 
     def heur(self, node: Node, dest: Node, method='Manhattan') -> int:
         """Heuristic used in the A* search."""

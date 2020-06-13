@@ -19,7 +19,7 @@ class Node:
 
     def pos_str(self) -> str:
         """Returns a string that represents this node's position on the grid."""
-        return f"{self.get_x},{self.get_y}"
+        return f"{self.get_x()},{self.get_y()}"
 
     def get_succ(self):
         """Returns a list of a node's neighbors/successors. Starts with the
