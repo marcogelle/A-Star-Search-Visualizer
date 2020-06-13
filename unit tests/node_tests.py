@@ -1,6 +1,6 @@
 import unittest
 import tkinter as tk
-from node import *
+from ..node import *
 
 class TestNode(unittest.TestCase):
     def __init__(self, *args, **kwargs):
