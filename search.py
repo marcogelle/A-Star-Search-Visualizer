@@ -1,5 +1,3 @@
-from queue import PriorityQueue
-
 from node import *
 
 class AbstractSearch:
@@ -13,25 +11,51 @@ class AStar(AbstractSearch):
         self.h = heuristic
 
     def search(self, start: Node, dest: Node):
-        open = PriorityQueue()
-        open.put((0, start))
+        """Performs A* search from start to destination. Returns a path."""
+        open = [start]
         closed = ()
         g = {start.pos_str(): 0}
+        f = {start.pos_str(): 0 + self.heur(start, dest)}
         parents = {start.pos_str(): None}
+
         while open:
-            curr = open.get()
+            # Get node with min f from open list
+            curr = open[0]
+            curr_ind = 0
+            for i, node in enumerate(open):
+                if f[node.pos_str] < f[curr.pos_str]:
+                    curr = node
+                    curr_ind = i
+            open.pop(curr_ind)
             closed.add(curr)
+
+            if curr is dest:
+                path = []
+                while curr is not None:
+                    path.append(curr)
+                    curr = parents[curr.pos_str()]
+                return path[::-1] # path does not include start node
+
             for next in curr.get_succ():
                 cost = g[curr.pos_str()] + 1
                 if next in closed:
                     continue
-                if next not in [x[1] for x in open.queue]:
+                if next not in open:
                     parents[next.pos_str()] = curr
                     g[next.pos_str()] = cost
-                    f_next = cost + self.heur(next, dest)
-                    open.put((f_next, next))
+                    f[next.pos_str()] = cost + self.heur(next, dest)
+                    open.append(next)
                 elif cost < g[start.pos_str()]:
-                    #TODO: remove from list
+                    parents[next.pos_str()] = curr
+                    g[next.post_str()] = cost
+                    f[next.post_str()] = cost + self.heur(next, dest)
 
-    def heur(self, node: Node, dest: Node) -> int:
-        pass
+    def heur(self, node: Node, dest: Node, method='Manhattan') -> int:
+        """Heuristic used in the A* search."""
+        def manhattan():
+            return (abs(node.get_x() - dest.get_x())
+                + abs(node.get_y() - dest.get_y()))
+
+        if method == 'Manhattan':
+            return manhattan()
+        raise TypeError('Invalid heuristic.')
