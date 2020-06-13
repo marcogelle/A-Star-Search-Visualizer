@@ -1,15 +1,15 @@
 from node import *
 
 class AbstractSearch:
+    def __init__(self, walls):
+        self.walls = walls
+
     def search(self, start: Node, dest: Node):
         """Finds and draws the shortest path from the starting
-        node to the destination node."""
+        node to the destination node. Returns a path."""
         pass
 
 class AStar(AbstractSearch):
-    def __init__(self, heuristic: str):
-        self.h = heuristic
-
     def search(self, start: Node, dest: Node):
         """Performs A* search from start to destination. Returns a path."""
         open = [start]
@@ -29,26 +29,28 @@ class AStar(AbstractSearch):
             open.pop(curr_ind)
             closed.add(curr)
 
+            # Destination is reached
             if curr is dest:
                 path = []
                 while curr is not None:
                     path.append(curr)
                     curr = parents[curr.pos_str()]
-                return path[::-1] # path does not include start node
+                return path[::-1]
 
+            # Check each of the current node's successors
             for next in curr.get_succ():
                 cost = g[curr.pos_str()] + 1
-                if next in closed:
+                if next in closed or next in self.walls:
                     continue
                 if next not in open:
                     parents[next.pos_str()] = curr
                     g[next.pos_str()] = cost
-                    f[next.pos_str()] = cost + self.heur(next, dest, self.h)
+                    f[next.pos_str()] = cost + self.heur(next, dest)
                     open.append(next)
                 elif cost < g[start.pos_str()]:
                     parents[next.pos_str()] = curr
                     g[next.post_str()] = cost
-                    f[next.post_str()] = cost + self.heur(next, dest, self.h)
+                    f[next.post_str()] = cost + self.heur(next, dest)
 
     def heur(self, node: Node, dest: Node, method='Manhattan') -> int:
         """Heuristic used in the A* search."""
@@ -59,3 +61,4 @@ class AStar(AbstractSearch):
         if method == 'Manhattan':
             return manhattan()
         raise TypeError('Invalid heuristic.')
+        #TODO include other heuristics
