@@ -17,6 +17,10 @@ class Node:
     def get_y(self) -> int:
         return self.y
 
+    def pos_str(self) -> str:
+        """Returns a string that represents this node's position on the grid."""
+        return f"{self.get_x},{self.get_y}"
+
     def get_succ(self):
         """Returns a list of a node's neighbors/successors. Starts with the
         top successor and goes clockwise. Does not show diagonal neighbors.
@@ -48,7 +52,7 @@ class NodeCollection:
     def get_from_pos(self, x: int, y: int) -> Node:
         """Returns the node at given coordinates (bottom left is (0,0))."""
         if x >= 0 and x < NUM_COLS and y >= 0 and y < NUM_ROWS:
-            return self.dict[f"{x},{y}"]
+            return self.dict[f"{x},{y}"]    # FIXME: ABSTRACTION BARRIER
         return None
 
     def get(self, frame) -> Node:

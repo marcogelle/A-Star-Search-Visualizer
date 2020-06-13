@@ -40,6 +40,7 @@ class GUI:
                     master=frm_grid,
                     relief=tk.RIDGE,
                     borderwidth=1,
+                    bg=GRID_COLOR,
                     width=SPOT_SIZE,
                     height=SPOT_SIZE
                 )
