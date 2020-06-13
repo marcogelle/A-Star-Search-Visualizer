@@ -1,8 +1,8 @@
 import unittest
 import tkinter as tk
 
-from search_visualizer/node import *
-from search_visualizer/search import *
+from node import *
+from search import *
 
 class TestNode(unittest.TestCase):
     def __init__(self, *args, **kwargs):
