@@ -21,4 +21,7 @@ class AStar(AbstractSearch):
             curr = open.get()
             closed.add(curr)
             for s in curr.get_succ():
-                cost =
+                cost = g[curr.pos_str()] + 1
+                if s in [item[1] for item in open.queue]: # check if s in open
+                    pass
+                    # TODO: finish implementing this
