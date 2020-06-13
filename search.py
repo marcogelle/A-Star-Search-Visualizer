@@ -1,9 +1,14 @@
 from node import *
 
-class Search:
-    def __init__(self):
+class AbstractSearch:
+    def search(self, start: Node, dest: Node):
+        """Finds and draws the shortest path from the starting
+        node to the destination node."""
         pass
 
-class AStar:
-    def __init__(self):
-        pass
+class AStar(AbstractSearch):
+    def __init__(self, heuristic: string):
+        self.h = heuristic
+
+    def search(self, start, dest):
+        

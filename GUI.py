@@ -5,7 +5,8 @@ from constants import *
 
 class GUI:
     """When a GUI instance is created, the GUI for this project is set up
-    on the given tkinter window."""
+    on the given tkinter window. A GUI also as a node_map containing node
+    objects for every spot on the grid."""
 
     def __init__(self, root, node_map):
         self.root = root
@@ -56,7 +57,7 @@ class GUI:
             node = self.node_map.get_from_pos(x, y)
             node.get_frm()["bg"] = "red"
             if self.start_node:
-                self.start_node.get_frm()["bg"] = "#d9d9d9"
+                self.start_node.get_frm()["bg"] = GRID_COLOR
             self.start_node = node
 
         btn_start = tk.Button(master=frame, font="Helvetica 11 bold",
@@ -79,7 +80,7 @@ class GUI:
             node = self.node_map.get_from_pos(x, y)
             node.get_frm()["bg"] = "green"
             if self.dest_node:
-                self.dest_node.get_frm()["bg"] = "#d9d9d9"
+                self.dest_node.get_frm()["bg"] = GRID_COLOR
             self.dest_node = node
 
         lbl_dest = tk.Button(master=frame, font="Helvetica 11 bold",
@@ -116,11 +117,11 @@ class GUI:
     def handle_click(self, event):
         """Event handler that changes the  color of the spot that is clicked."""
         self.initial_click = event.widget
-        if self.initial_click["bg"] == "#d9d9d9":
-            self.initial_click["bg"] = "black"
+        if self.initial_click["bg"] == GRID_COLOR:
+            self.initial_click["bg"] = WALL_COLOR
             self.initial_black = True
-        elif self.initial_click["bg"] == "black":
-            self.initial_click["bg"] = "#d9d9d9"
+        elif self.initial_click["bg"] == WALL_COLOR:
+            self.initial_click["bg"] = GRID_COLOR
             self.initial_black = False
 
     def handle_drag(self, event):
@@ -130,12 +131,12 @@ class GUI:
         if (self.current_widget != widget and widget != self.initial_click
             and self.node_map.contains_widget(widget)):
             self.current_widget = widget
-            if (self.current_widget["bg"] == "black"
-                or self.current_widget["bg"] == "#d9d9d9"):
+            if (self.current_widget["bg"] == WALL_COLOR
+                or self.current_widget["bg"] == GRID_COLOR):
                 if self.initial_black:
-                    self.current_widget["bg"] = "black"
+                    self.current_widget["bg"] = WALL_COLOR
                 else:
-                    self.current_widget["bg"] = "#d9d9d9"
+                    self.current_widget["bg"] = GRID_COLOR
 
     def track_position(self, event):
         """Event handler that updates the current grid position in
