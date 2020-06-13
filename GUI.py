@@ -13,6 +13,7 @@ class GUI:
         self.node_map = node_map
         self.start_node = None
         self.dest_node = None
+        self.walls = set()
 
         # Flags for holding info during the event loop. Used by event handlers.
         self.current_widget = None
@@ -121,6 +122,7 @@ class GUI:
         if self.initial_click["bg"] == GRID_COLOR:
             self.initial_click["bg"] = WALL_COLOR
             self.initial_black = True
+            self.walls.add(self.initial_click)
         elif self.initial_click["bg"] == WALL_COLOR:
             self.initial_click["bg"] = GRID_COLOR
             self.initial_black = False
@@ -136,6 +138,7 @@ class GUI:
                 or self.current_widget["bg"] == GRID_COLOR):
                 if self.initial_black:
                     self.current_widget["bg"] = WALL_COLOR
+                    self.walls.add(self.current_widget)
                 else:
                     self.current_widget["bg"] = GRID_COLOR
 

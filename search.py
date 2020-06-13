@@ -51,6 +51,7 @@ class AStar(AbstractSearch):
                     parents[next.pos_str()] = curr
                     g[next.post_str()] = cost
                     f[next.post_str()] = cost + self.heur(next, dest)
+        return None
 
     def heur(self, node: Node, dest: Node, method='Manhattan') -> int:
         """Heuristic used in the A* search."""
