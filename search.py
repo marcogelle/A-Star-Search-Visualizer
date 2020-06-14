@@ -1,5 +1,3 @@
-import tkinter as tk
-
 from node import *
 from constants import SEARCH_COLOR
 
@@ -13,12 +11,10 @@ class AbstractSearch:
         pass
 
 class AStar(AbstractSearch):
-    def __init__(self, walls, root): #HERE
-        self.root = root
-        super().__init__(walls)
-
     def search(self, start: Node, dest: Node):
         """Performs A* search from start to destination. Returns a path."""
+        self.searched = []
+
         open = [start]
         closed = set()
         g = {start.pos_str(): 0}
@@ -45,10 +41,9 @@ class AStar(AbstractSearch):
                 # reverse path, exclude start and destination nodes
                 return path[len(path)-2:0:-1]
 
-            # Color curr in GUI
-            if curr is not start: #HERE
-                curr.get_frm()["bg"] = SEARCH_COLOR
-                # self.root.after(5)
+            # Plan to color curr in GUI
+            if curr is not start:
+                self.searched.append(curr.get_frm())
 
             # Check each of the current node's successors
             for next in curr.get_succ():
@@ -66,6 +61,11 @@ class AStar(AbstractSearch):
                     f[next.post_str()] = cost + self.heur(next, dest)
 
         return []
+
+    def get_searched(self):
+        """Returns a list of nodes in the order they were inspected in
+        the last call of self.search()."""
+        return self.searched
 
     def heur(self, node: Node, dest: Node, method='Manhattan') -> int:
         """Heuristic used in the A* search."""
