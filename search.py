@@ -1,4 +1,5 @@
 from node import *
+from constants import SEARCH_COLOR
 
 class AbstractSearch:
     def __init__(self, walls):
@@ -37,6 +38,10 @@ class AStar(AbstractSearch):
                     curr = parents[curr.pos_str()]
                 # reverse path, exclude start and destination nodes
                 return path[len(path)-2:0:-1]
+
+            # Color curr in GUI
+            if curr is not start:
+                curr.get_frm()["bg"] = SEARCH_COLOR
 
             # Check each of the current node's successors
             for next in curr.get_succ():

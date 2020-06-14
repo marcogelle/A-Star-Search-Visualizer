@@ -154,7 +154,8 @@ class GUI:
                 else:
                     self.current_widget["bg"] = GRID_COLOR
                     node = self.node_map.get(self.current_widget)
-                    self.walls.remove(node)
+                    if node in self.walls:
+                        self.walls.remove(node)
 
     def track_position(self, event):
         """Event handler that updates the current grid position in
