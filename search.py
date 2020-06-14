@@ -1,3 +1,5 @@
+import tkinter as tk
+
 from node import *
 from constants import SEARCH_COLOR
 
@@ -42,6 +44,7 @@ class AStar(AbstractSearch):
             # Color curr in GUI
             if curr is not start:
                 curr.get_frm()["bg"] = SEARCH_COLOR
+
 
             # Check each of the current node's successors
             for next in curr.get_succ():

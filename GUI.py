@@ -30,6 +30,7 @@ class GUI:
         self.draw_start_input(frm_input)
         self.draw_destination_input(frm_input)
         self.draw_start_button(frm_input)
+        self.draw_clear_button(frm_input)
         self.draw_position_tracker(frm_input)
         frm_input.pack()
 
@@ -106,11 +107,27 @@ class GUI:
             a_star = AStar(self.walls)
             path = a_star.search(self.start_node, self.dest_node)
             for node in path:
-                node.get_frm()["bg"] = "blue"
+                node.get_frm()["bg"] = PATH_COLOR
 
         btn_Astar = tk.Button(master=frame, text="Start A* Search",
             bg="#2f4454", fg="white", command=start_search)
         btn_Astar.pack(side=tk.LEFT, padx=(20,0))
+
+    def draw_clear_button(self, frame):
+        """Creates the button for clearing the grid."""
+        def clear():
+            self.start_node.get_frm()["bg"] = GRID_COLOR
+            self.start_node = None
+            self.dest_node.get_frm()["bg"] = GRID_COLOR
+            self.dest_node = None
+            
+            for node in self.walls:
+                node.get_frm()["bg"] = GRID_COLOR
+            self.walls = set()
+
+        btn_clear = tk.Button(master=frame, text="Clear",
+            bg="#2f4454", fg="white", command=clear)
+        btn_clear.pack(side=tk.LEFT, padx=(10,0))
 
     def draw_position_tracker(self, frame):
         """Creates the labels that track the cursor coordinates."""

@@ -6,3 +6,4 @@ SPOT_SIZE = 25
 GRID_COLOR = "#e8e8e8"
 WALL_COLOR = "black"
 SEARCH_COLOR = "yellow"
+PATH_COLOR = "blue"
