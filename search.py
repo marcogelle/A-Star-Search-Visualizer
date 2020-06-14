@@ -35,7 +35,8 @@ class AStar(AbstractSearch):
                 while curr is not None:
                     path.append(curr)
                     curr = parents[curr.pos_str()]
-                return path[::-1]
+                # reverse path, exclude start and destination nodes
+                return path[len(path)-2:0:-1]
 
             # Check each of the current node's successors
             for next in curr.get_succ():
