@@ -1,6 +1,9 @@
 # Search-Visualizer
-To run the program: run the file GUI.py with Python 3
+Required software: Python 3
+To run the program: run the file GUI.py
 
-This is a visualizer to the A* pathfinding algorithm.
-The GUI was created using tkinter for Python 3.
-I used the Manhattan distance as a heuristic.
+This project aims to visualize how the A* pathfinding algorithm runs.
+I used the Manhattan distance heuristic, but I plan to add options for different
+heuristics (this project is still a work in progress).
+
+I made the GUI using Tkinter for Python 3.
