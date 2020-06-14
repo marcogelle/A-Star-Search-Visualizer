@@ -41,7 +41,7 @@ class TestNode(unittest.TestCase):
         a_star = AStar(walls)
         path = a_star.search(start, dest)
         self.print_test('test_no_path', start, dest, walls)
-        self.assertIsNone(path)
+        self.assertEqual(len(path), 0)
 
     def print_test(self, name, start, dest, walls, path=None):
         print(name)

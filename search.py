@@ -13,6 +13,10 @@ class AbstractSearch:
         pass
 
 class AStar(AbstractSearch):
+    def __init__(self, walls, root):
+        self.root = root
+        super().__init__(walls)
+
     def search(self, start: Node, dest: Node):
         """Performs A* search from start to destination. Returns a path."""
         open = [start]
@@ -44,7 +48,7 @@ class AStar(AbstractSearch):
             # Color curr in GUI
             if curr is not start:
                 curr.get_frm()["bg"] = SEARCH_COLOR
-
+                self.root.after(5)
 
             # Check each of the current node's successors
             for next in curr.get_succ():
@@ -60,7 +64,8 @@ class AStar(AbstractSearch):
                     parents[next.pos_str()] = curr
                     g[next.post_str()] = cost
                     f[next.post_str()] = cost + self.heur(next, dest)
-        return None
+
+        return []
 
     def heur(self, node: Node, dest: Node, method='Manhattan') -> int:
         """Heuristic used in the A* search."""
