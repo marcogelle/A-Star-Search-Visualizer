@@ -110,7 +110,7 @@ class GUI:
                 return
             curr_frm = self.searched[self.searched_index]
             self.searched_index += 1
-            curr_frm["bg"] = "yellow"
+            curr_frm["bg"] = "white"
             self.root.after(5, color_searched)
 
         def start_search():
@@ -133,6 +133,9 @@ class GUI:
             self.start_node = None
             self.dest_node = None
             self.walls = set()
+            self.searched_index = 0
+            self.path = []
+            self.searched = []
 
         btn_clear = tk.Button(master=frame, text="Clear",
             bg="#2f4454", fg="white", command=clear)
