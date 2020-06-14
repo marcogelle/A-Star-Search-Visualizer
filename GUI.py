@@ -102,11 +102,24 @@ class GUI:
 
     def draw_start_button(self, frame):
         """Creates a button for starting the A* search."""
+        self.searched_index = 0
+        def color_searched():
+            if self.searched_index >= len(self.searched):
+                for node in self.path:
+                    node.get_frm()["bg"] = PATH_COLOR
+                return
+            curr_frm = self.searched[self.searched_index]
+            self.searched_index += 1
+            curr_frm["bg"] = "yellow"
+            self.root.after(5, color_searched)
+
         def start_search():
-            a_star = AStar(self.walls, self.root) #HERE
+            a_star = AStar(self.walls)
             path = a_star.search(self.start_node, self.dest_node)
-            for node in path:
-                node.get_frm()["bg"] = PATH_COLOR
+            print(a_star.get_searched())
+            print(len(a_star.get_searched()))
+            self.path, self.searched = path, a_star.get_searched()
+            color_searched()
 
         btn_Astar = tk.Button(master=frame, text="Start A* Search",
             bg="#2f4454", fg="white", command=start_search)

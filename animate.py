@@ -10,14 +10,14 @@ class App:
         self.draw_frames()
 
     def draw_frames(self):
-        for i in range(3):
+        for i in range(50):
             self.frames.append(tk.Frame(
                 master=self.root,
                 relief=tk.RIDGE,
                 borderwidth=1,
                 bg=GRID_COLOR,
-                width=SPOT_SIZE,
-                height=SPOT_SIZE
+                width=20,
+                height=10
                 ))
             self.frames[i].pack()
 
@@ -29,7 +29,7 @@ class App:
             f = self.frames[self.count]
             self.count += 1
             f['bg'] = "red"
-            f.after(500, color)
+            f.after(50, color)
 
         btn = tk.Button(master=self.root, text="press me", command=color)
         btn.pack()
