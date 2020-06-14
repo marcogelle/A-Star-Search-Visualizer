@@ -22,10 +22,14 @@ class App:
             self.frames[i].pack()
 
     def draw_btn(self):
+        self.count = 0
         def color():
-            for f in self.frames:
-                self.root.after(500)
-                f['bg'] = "red"
+            if self.count >= len(self.frames):
+                return
+            f = self.frames[self.count]
+            self.count += 1
+            f['bg'] = "red"
+            f.after(500, color)
 
         btn = tk.Button(master=self.root, text="press me", command=color)
         btn.pack()
