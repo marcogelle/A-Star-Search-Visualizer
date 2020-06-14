@@ -1,5 +1,6 @@
 # Search-Visualizer
 Required software: Python 3
+
 To run the program: run the file GUI.py
 
 This project aims to visualize how the A* pathfinding algorithm runs.
