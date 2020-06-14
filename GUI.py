@@ -178,12 +178,8 @@ class GUI:
         self.lbl_mouse_x["text"] = str(node.get_x())
         self.lbl_mouse_y["text"] = str(node.get_y())
 
-
-def main():
+if __name__ == '__main__':
     window = tk.Tk()
     all_nodes = NodeCollection()
     GUI(window, all_nodes)
     window.mainloop()
-
-if __name__ == '__main__':
-    main()
