@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from node import *
+from search import *
 from constants import *
 
 class GUI:
@@ -28,7 +29,7 @@ class GUI:
         frm_input = tk.Frame(master=self.root)
         self.draw_start_input(frm_input)
         self.draw_destination_input(frm_input)
-        self.draw_start_buttons(frm_input)
+        self.draw_start_button(frm_input)
         self.draw_position_tracker(frm_input)
         frm_input.pack()
 
@@ -98,10 +99,17 @@ class GUI:
         lbl_dest_y.pack(side=tk.LEFT)
         ent_dest_y.pack(side=tk.LEFT)
 
-    def draw_start_buttons(self, frame):
+    def draw_start_button(self, frame):
         """Creates a button for starting the A* search."""
+        def start_search():
+            print([node.pos_str() for node in self.walls])
+            a_star = AStar(self.walls)
+            path = a_star.search(self.start_node, self.dest_node)
+            for node in path:
+                node.get_frm()["bg"] = "blue"
+
         btn_Astar = tk.Button(master=frame, text="Start A* Search",
-            bg="#2f4454", fg="white")
+            bg="#2f4454", fg="white", command=start_search)
         btn_Astar.pack(side=tk.LEFT, padx=(20,0))
 
     def draw_position_tracker(self, frame):
@@ -117,15 +125,18 @@ class GUI:
         self.lbl_mouse_y.pack(side=tk.LEFT)
 
     def handle_click(self, event):
-        """Event handler that changes the  color of the spot that is clicked."""
+        """Event handler that changes the color of the spot that is clicked."""
         self.initial_click = event.widget
         if self.initial_click["bg"] == GRID_COLOR:
             self.initial_click["bg"] = WALL_COLOR
             self.initial_black = True
-            self.walls.add(self.initial_click)
+            node = self.node_map.get(self.initial_click)
+            self.walls.add(node)
         elif self.initial_click["bg"] == WALL_COLOR:
             self.initial_click["bg"] = GRID_COLOR
             self.initial_black = False
+            node = self.node_map.get(self.initial_click)
+            self.walls.remove(node)
 
     def handle_drag(self, event):
         """Event handler that changes the color of the spot that
@@ -138,9 +149,12 @@ class GUI:
                 or self.current_widget["bg"] == GRID_COLOR):
                 if self.initial_black:
                     self.current_widget["bg"] = WALL_COLOR
-                    self.walls.add(self.current_widget)
+                    node = self.node_map.get(self.current_widget)
+                    self.walls.add(node)
                 else:
                     self.current_widget["bg"] = GRID_COLOR
+                    node = self.node_map.get(self.current_widget)
+                    self.walls.remove(node)
 
     def track_position(self, event):
         """Event handler that updates the current grid position in
@@ -149,6 +163,7 @@ class GUI:
         node = self.node_map.get(widget)
         self.lbl_mouse_x["text"] = str(node.get_x())
         self.lbl_mouse_y["text"] = str(node.get_y())
+
 
 def main():
     window = tk.Tk()
