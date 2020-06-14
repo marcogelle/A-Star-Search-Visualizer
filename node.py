@@ -64,3 +64,7 @@ class NodeCollection:
     def contains_widget(self, widget) -> bool:
         """Returns True if the given widget is in our collection."""
         return widget in self.widgets
+
+    def widg_set(self):
+        """Returns the set of widgets."""
+        return self.widgets

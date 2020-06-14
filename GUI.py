@@ -103,7 +103,6 @@ class GUI:
     def draw_start_button(self, frame):
         """Creates a button for starting the A* search."""
         def start_search():
-            print([node.pos_str() for node in self.walls])
             a_star = AStar(self.walls)
             path = a_star.search(self.start_node, self.dest_node)
             for node in path:
@@ -116,13 +115,10 @@ class GUI:
     def draw_clear_button(self, frame):
         """Creates the button for clearing the grid."""
         def clear():
-            self.start_node.get_frm()["bg"] = GRID_COLOR
+            for w in self.node_map.widg_set():
+                w["bg"] = GRID_COLOR
             self.start_node = None
-            self.dest_node.get_frm()["bg"] = GRID_COLOR
             self.dest_node = None
-            
-            for node in self.walls:
-                node.get_frm()["bg"] = GRID_COLOR
             self.walls = set()
 
         btn_clear = tk.Button(master=frame, text="Clear",
