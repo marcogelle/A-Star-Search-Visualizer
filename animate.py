@@ -2,6 +2,8 @@ import tkinter as tk
 
 from constants import *
 
+# This is just a test file I used to experiment with tkinter.after()
+
 class App:
     def __init__(self, parent):
         self.root = parent
