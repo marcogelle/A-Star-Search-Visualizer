@@ -13,7 +13,7 @@ class AbstractSearch:
         pass
 
 class AStar(AbstractSearch):
-    def __init__(self, walls, root):
+    def __init__(self, walls, root): #HERE
         self.root = root
         super().__init__(walls)
 
@@ -46,9 +46,9 @@ class AStar(AbstractSearch):
                 return path[len(path)-2:0:-1]
 
             # Color curr in GUI
-            if curr is not start:
+            if curr is not start: #HERE
                 curr.get_frm()["bg"] = SEARCH_COLOR
-                self.root.after(5)
+                # self.root.after(5)
 
             # Check each of the current node's successors
             for next in curr.get_succ():

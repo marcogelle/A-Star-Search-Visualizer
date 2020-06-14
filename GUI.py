@@ -103,7 +103,7 @@ class GUI:
     def draw_start_button(self, frame):
         """Creates a button for starting the A* search."""
         def start_search():
-            a_star = AStar(self.walls, self.root)
+            a_star = AStar(self.walls, self.root) #HERE
             path = a_star.search(self.start_node, self.dest_node)
             for node in path:
                 node.get_frm()["bg"] = PATH_COLOR
