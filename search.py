@@ -7,12 +7,19 @@ class AbstractSearch:
 
     def search(self, start: Node, dest: Node):
         """Finds and draws the shortest path from the starting
-        node to the destination node. Returns a path."""
+        node to the destination node. Returns a path. Should update
+        self.searched for use in the GUI."""
+        pass
+
+    def get_searched(self):
+        """Returns a list of nodes in the order they were inspected in
+        the last call of self.search()."""
         pass
 
 class AStar(AbstractSearch):
     def search(self, start: Node, dest: Node):
-        """Performs A* search from start to destination. Returns a path."""
+        """Performs A* search from start to destination. Returns a path.
+        Updates self.searched."""
         self.searched = []
 
         open = [start]
