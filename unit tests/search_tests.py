@@ -21,7 +21,7 @@ class TestNode(unittest.TestCase):
         walls = set()
         start = self.map.get_from_pos(1, 1)
         dest = self.map.get_from_pos(5, 4)
-        a_star = AStar(walls)
+        a_star = AStar(walls, Heuristics.manhattan)
         path = a_star.search(start, dest)
         self.print_test('test_trivial', start, dest, walls, path)
 
@@ -31,7 +31,7 @@ class TestNode(unittest.TestCase):
             walls.add(self.map.get_from_pos(x, y))
         start = self.map.get_from_pos(1, 1)
         dest = self.map.get_from_pos(5, 4)
-        a_star = AStar(walls)
+        a_star = AStar(walls, Heuristics.manhattan)
         path = a_star.search(start, dest)
         self.print_test('test_wall_simple', start, dest, walls, path)
 
@@ -41,7 +41,7 @@ class TestNode(unittest.TestCase):
             walls.add(self.map.get_from_pos(x, y))
         start = self.map.get_from_pos(1, 1)
         dest = self.map.get_from_pos(5, 4)
-        a_star = AStar(walls)
+        a_star = AStar(walls, Heuristics.manhattan)
         path = a_star.search(start, dest)
         self.print_test('test_no_path', start, dest, walls)
         self.assertEqual(len(path), 0)
@@ -54,7 +54,7 @@ class TestNode(unittest.TestCase):
         else:
             print('Walls: None')
         if path is not None:
-            print([node.pos_str() for node in path])
+            print(f"path: { [node.pos_str() for node in path] }")
         print()
 
 if __name__ == '__main__':
