@@ -1,13 +1,27 @@
+from enum import Enum
 from node import *
 from constants import SEARCH_COLOR
+
+class Heuristics():
+    @staticmethod
+    def trivial(node, dest):
+        return 0
+
+    @staticmethod
+    def manhattan(node, dest):
+        return (abs(node.get_x() - dest.get_x()) + abs(node.get_y() - dest.get_y()))
+
+    @staticmethod
+    def euclidean(node, dest):
+        return ((node.get_x() - dest.get(x))**2 + (node.get_y() - dest.get_y())**2) ** 0.5
 
 class AbstractSearch:
     def __init__(self, walls):
         self.walls = walls
 
-    def search(self, start: Node, dest: Node):
-        """Finds and draws the shortest path from the starting
-        node to the destination node. Returns a path. Should update
+    def search(self, start, dest):
+        """Finds and draws the shortest path from start (type Node) to the
+        destination, dest (type Node). Returns a path. Should update
         self.searched for use in the GUI."""
         pass
 
@@ -17,6 +31,10 @@ class AbstractSearch:
         pass
 
 class AStar(AbstractSearch):
+    def __init__(self, walls, heuristic):
+        AbstractSearch.__init__(self, walls)
+        self.heuristic = heuristic
+
     def search(self, start: Node, dest: Node):
         """Performs A* search from start to destination. Returns a path.
         Updates self.searched."""
@@ -25,7 +43,7 @@ class AStar(AbstractSearch):
         open = [start]
         closed = set()
         g = {start.pos_str(): 0}
-        f = {start.pos_str(): 0 + self.heur(start, dest)}
+        f = {start.pos_str(): 0 + self.compute_heur(start, dest)}
         parents = {start.pos_str(): None}
 
         while open:
@@ -60,12 +78,12 @@ class AStar(AbstractSearch):
                 if next not in open:
                     parents[next.pos_str()] = curr
                     g[next.pos_str()] = cost
-                    f[next.pos_str()] = cost + self.heur(next, dest)
+                    f[next.pos_str()] = cost + self.compute_heur(next, dest)
                     open.append(next)
                 elif cost < g[start.pos_str()]:
                     parents[next.pos_str()] = curr
                     g[next.post_str()] = cost
-                    f[next.post_str()] = cost + self.heur(next, dest)
+                    f[next.post_str()] = cost + self.compute_heur(next, dest)
 
         return []
 
@@ -74,13 +92,8 @@ class AStar(AbstractSearch):
         the last call of self.search()."""
         return self.searched
 
-    def heur(self, node: Node, dest: Node, method='Manhattan') -> int:
-        """Heuristic used in the A* search."""
-        def manhattan():
-            return (abs(node.get_x() - dest.get_x())
-                + abs(node.get_y() - dest.get_y()))
-
-        if method == 'Manhattan':
-            return manhattan()
-        raise TypeError('Invalid heuristic.')
-        #TODO include other heuristics
+    def compute_heur(self, node, dest):
+        """Compute the heuristic used in the A* search for a given node of type
+        Node. Also takes the destination Node, dest, as a parameter.
+        Returns the computed value."""
+        return self.heuristic(node, dest)

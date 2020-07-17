@@ -8,16 +8,16 @@ class Node:
         self.y = y_coord
         self.map = node_map
 
-    def get_frm(self) -> int:
+    def get_frm(self):
         return self.frm
 
-    def get_x(self) -> int:
+    def get_x(self):
         return self.x
 
-    def get_y(self) -> int:
+    def get_y(self):
         return self.y
 
-    def pos_str(self) -> str:
+    def pos_str(self):
         """Returns a string that represents this node's position on the grid."""
         return f"{self.get_x()},{self.get_y()}"
 

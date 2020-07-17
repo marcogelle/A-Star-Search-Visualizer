@@ -1,13 +1,13 @@
 import tkinter as tk
 
-from node import *
-from search import *
+import node
+import search
 from constants import *
 
 class GUI:
     """When a GUI instance is created, the GUI for this project is set up
     on the given tkinter window. A GUI also as a node_map containing node
-    objects for every spot on the grid."""
+    objects for every spot on the grid (see NodeCollection in node.py)."""
 
     def __init__(self, root, node_map):
         self.root = root
@@ -51,7 +51,7 @@ class GUI:
                 frm.bind("<Button-1>", self.handle_click)
                 frm.bind("<B1-Motion>", self.handle_drag)
                 frm.bind("<Enter>", lambda event: self.track_position(event))
-                self.node_map.add(Node(frm, c, NUM_ROWS-r-1, self.node_map))
+                self.node_map.add(node.Node(frm, c, NUM_ROWS-r-1, self.node_map))
         frm_grid.pack()
 
     def draw_start_input(self, frame):
@@ -114,7 +114,7 @@ class GUI:
             self.root.after(5, color_searched)
 
         def start_search():
-            a_star = AStar(self.walls)
+            a_star = search.AStar(self.walls, search.Heuristics.manhattan)
             path = a_star.search(self.start_node, self.dest_node)
             self.path, self.searched = path, a_star.get_searched()
             color_searched()
@@ -194,6 +194,6 @@ class GUI:
 
 if __name__ == '__main__':
     window = tk.Tk()
-    all_nodes = NodeCollection()
+    all_nodes = node.NodeCollection()
     GUI(window, all_nodes)
     window.mainloop()
