@@ -1,5 +1,8 @@
+import os, sys
 import unittest
 import tkinter as tk
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath('node.py'))))
 from node import *
 
 class TestNode(unittest.TestCase):

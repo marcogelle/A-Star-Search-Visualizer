@@ -116,8 +116,6 @@ class GUI:
         def start_search():
             a_star = AStar(self.walls)
             path = a_star.search(self.start_node, self.dest_node)
-            print(a_star.get_searched())
-            print(len(a_star.get_searched()))
             self.path, self.searched = path, a_star.get_searched()
             color_searched()
 
