@@ -69,8 +69,8 @@ class AStar(AbstractSearch):
                     open.append(next)
                 elif cost < g[start.pos_str()]:
                     parents[next.pos_str()] = curr
-                    g[next.post_str()] = cost
-                    f[next.post_str()] = cost + self.compute_heur(next, dest)
+                    g[next.pos_str()] = cost
+                    f[next.pos_str()] = cost + self.compute_heur(next, dest)
 
         return []
 

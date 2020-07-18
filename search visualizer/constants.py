@@ -1,7 +1,7 @@
 # The dimensions of the grid
-NUM_ROWS = 20#36
-NUM_COLS = 20#61
-SPOT_SIZE = 20
+NUM_ROWS = 36
+NUM_COLS = 61
+SPOT_SIZE = 25
 
 GRID_COLOR = "#d9d9d9"#"#e8e8e8"
 WALL_COLOR = "black"
