@@ -15,10 +15,16 @@ This project aims to visualize how the A* pathfinding algorithm runs and show th
 
 Controls:
 
+
 Make/remove walls: click and drag on the grid
+
 Choose starting position: enter the x,y coordinates and press the "Start" button
+
 Choose goal position: enter the x,y coordinates and press the "Destination" button
+
 Run pathfinding: choose the heuristic from the dropdown menu and press "Start Search"
+
 Clear the grid: press "clear"
+
 
 The GUI was made using the tkinter package for Python 3.
