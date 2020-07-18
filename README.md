@@ -1,4 +1,4 @@
-# Search-Visualizer
+# A* Search Visualizer
 Required software: Python 3
 
 To run the program: run GUI.py, located in the 'search visualizer' directory
