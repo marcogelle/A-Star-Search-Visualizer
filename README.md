@@ -24,7 +24,4 @@ Choose goal position: enter the x,y coordinates and press the "Destination" butt
 
 Run pathfinding: choose the heuristic from the dropdown menu and press "Start Search"
 
-Clear the grid: press "clear"
-
-
-The GUI was made using the tkinter package for Python 3.
+Clear the grid: press "Clear"
