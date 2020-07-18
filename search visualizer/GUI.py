@@ -201,7 +201,7 @@ class GUI:
                 if self.initial_black:
                     self.make_wall(self.current_widget)
                 else:
-                    sself.remove_wall(self.current_widget)
+                    self.remove_wall(self.current_widget)
 
     def make_wall(self, grid_square):
         """For a given grid_square (type tk.Frame), make that square a wall.
