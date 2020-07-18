@@ -94,3 +94,6 @@ def manhattan(node, dest):
 
 def euclidean(node, dest):
     return ((node.get_x() - dest.get_x())**2 + (node.get_y() - dest.get_y())**2) ** 0.5
+
+def inadmissible(node, dest):
+    return 2 * manhattan(node, dest)

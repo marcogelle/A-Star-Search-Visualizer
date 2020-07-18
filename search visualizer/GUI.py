@@ -62,7 +62,7 @@ class GUI:
             node = self.node_map.get_from_pos(x, y)
             if self.start_node:
                 self.start_node.get_frm()["bg"] = GRID_COLOR
-            node.get_frm()["bg"] = "red"
+            node.get_frm()["bg"] = START_COLOR
             self.start_node = node
 
         btn_start = tk.Button(master=frame, font="Helvetica 11 bold",
@@ -85,7 +85,7 @@ class GUI:
             node = self.node_map.get_from_pos(x, y)
             if self.dest_node:
                 self.dest_node.get_frm()["bg"] = GRID_COLOR
-            node.get_frm()["bg"] = "green"
+            node.get_frm()["bg"] = DEST_COLOR
             self.dest_node = node
 
         lbl_dest = tk.Button(master=frame, font="Helvetica 11 bold",
@@ -103,11 +103,12 @@ class GUI:
 
     def draw_search_options(self, frame):
         """Creates the dropdown menu for search algorithms."""
-        self.curr_alg = tk.StringVar(frame) # default algorithm is A* manhattan
-        self.curr_alg.set('A* Search (Manhattan distance heuristic)')
+        self.curr_alg = tk.StringVar(frame)
         self.algorithms = {'A* Search (Manhattan distance heuristic)':search.manhattan,
                     'A* Search (Euclidean distance heuristic)':search.euclidean,
-                    'Uniform Cost Search':search.trivial}
+                    'Uniform Cost Search':search.trivial,
+                    'A* Search (inadmissible heuristic)':search.inadmissible}
+        self.curr_alg.set(next(iter(self.algorithms)))
         alg_dropdown = tk.OptionMenu(frame, self.curr_alg, *self.algorithms.keys())
         alg_dropdown.config(width=35)
         alg_dropdown.pack(side=tk.LEFT, padx=(20, 0))
@@ -121,12 +122,23 @@ class GUI:
     def start_search(self):
         """Performs the specified search algorithm. This is called when
         the start search button is pressed."""
+        self.clear_searched()
         heur_name = self.curr_alg.get()
         a_star = search.AStar(self.walls, self.algorithms[heur_name])
         path = a_star.search(self.start_node, self.dest_node)
         self.path, self.searched = path, a_star.get_searched()
         self.searched_index = 0
         self.color_searched()
+
+    def clear_searched(self):
+        """Uncolors the positions that were colored during the last search
+        conducted. Uncolors the path and the searched nodes."""
+        try:
+            for s in self.searched:
+                if self.node_map.get(s) not in self.walls:
+                    s["bg"] = GRID_COLOR
+        except AttributeError:
+            pass
 
     def color_searched(self):
         """After a search is performed, the searched grid squares (tk.Frame)
@@ -171,16 +183,12 @@ class GUI:
     def handle_click(self, event):
         """Event handler that changes the color of the spot that is clicked."""
         self.initial_click = event.widget
-        if self.initial_click["bg"] == GRID_COLOR:
-            self.initial_click["bg"] = WALL_COLOR
+        if self.initial_click["bg"] in {GRID_COLOR, SEARCH_COLOR, PATH_COLOR}:
+            self.make_wall(self.initial_click)
             self.initial_black = True
-            node = self.node_map.get(self.initial_click)
-            self.walls.add(node)
         elif self.initial_click["bg"] == WALL_COLOR:
-            self.initial_click["bg"] = GRID_COLOR
+            self.remove_wall(self.initial_click)
             self.initial_black = False
-            node = self.node_map.get(self.initial_click)
-            self.walls.remove(node)
 
     def handle_drag(self, event):
         """Event handler that changes the color of the spot that
@@ -189,17 +197,30 @@ class GUI:
         if (self.current_widget != widget and widget != self.initial_click
             and self.node_map.contains_widget(widget)):
             self.current_widget = widget
-            if (self.current_widget["bg"] == WALL_COLOR
-                or self.current_widget["bg"] == GRID_COLOR):
+            if self.current_widget["bg"] not in {START_COLOR, DEST_COLOR}:
                 if self.initial_black:
-                    self.current_widget["bg"] = WALL_COLOR
-                    node = self.node_map.get(self.current_widget)
-                    self.walls.add(node)
+                    self.make_wall(self.current_widget)
                 else:
-                    self.current_widget["bg"] = GRID_COLOR
-                    node = self.node_map.get(self.current_widget)
-                    if node in self.walls:
-                        self.walls.remove(node)
+                    sself.remove_wall(self.current_widget)
+
+    def make_wall(self, grid_square):
+        """For a given grid_square (type tk.Frame), make that square a wall.
+        Recolors the tkinter frame and records the associated node object as a
+        wall."""
+        grid_square["bg"] = WALL_COLOR
+        node = self.node_map.get(grid_square)
+        self.walls.add(node)
+
+    def remove_wall(self, wall_square):
+        """For a given wall_square (type tk.Frame), turn it to a normal grid
+        square. Recolors the frame and records the associated node as a
+        non-wall."""
+        wall_square["bg"] = GRID_COLOR
+        node = self.node_map.get(wall_square)
+        try:
+            self.walls.remove(node)
+        except KeyError:
+            pass
 
     def track_position(self, event):
         """Event handler that updates the current grid position in
