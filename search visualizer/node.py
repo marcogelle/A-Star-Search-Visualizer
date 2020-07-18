@@ -8,6 +8,18 @@ class Node:
         self.y = y_coord
         self.map = node_map
 
+    def __hash__(self):
+        return hash((self.get_x(), self.get_y()))
+
+    def __eq__(self, other):
+        return (self.get_x(), self.get_y()) == (other.get_x(), other.get_y())
+
+    def __ne__(self, other):
+        return not self == other
+
+    def __repr__(self):
+        return f'Node({self.get_x()}, {self.get_y()})'
+
     def get_frm(self):
         return self.frm
 
