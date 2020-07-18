@@ -29,7 +29,7 @@ class GUI:
         frm_input = tk.Frame(master=self.root)
         self.draw_start_input(frm_input)
         self.draw_destination_input(frm_input)
-        self.draw_start_button(frm_input)
+        self.draw_search_button(frm_input)
         self.draw_clear_button(frm_input)
         self.draw_position_tracker(frm_input)
         frm_input.pack()
@@ -100,28 +100,32 @@ class GUI:
         lbl_dest_y.pack(side=tk.LEFT)
         ent_dest_y.pack(side=tk.LEFT)
 
-    def draw_start_button(self, frame):
+    def draw_search_button(self, frame):
         """Creates a button for starting the A* search."""
-        self.searched_index = 0
-        def color_searched():
-            if self.searched_index >= len(self.searched):
-                for node in self.path:
-                    node.get_frm()["bg"] = PATH_COLOR
-                return
-            curr_frm = self.searched[self.searched_index]
-            self.searched_index += 1
-            curr_frm["bg"] = "white"
-            self.root.after(5, color_searched)
-
-        def start_search():
-            a_star = search.AStar(self.walls, search.manhattan)
-            path = a_star.search(self.start_node, self.dest_node)
-            self.path, self.searched = path, a_star.get_searched()
-            color_searched()
-
         btn_Astar = tk.Button(master=frame, text="Start A* Search",
-            bg="#2f4454", fg="white", command=start_search)
+            bg="#2f4454", fg="white", command=self.start_search)
         btn_Astar.pack(side=tk.LEFT, padx=(20,0))
+
+    def start_search(self):
+        """Performs the specified search algorithm. This is called when
+        the start search button is pressed."""
+        a_star = search.AStar(self.walls, search.manhattan)
+        path = a_star.search(self.start_node, self.dest_node)
+        self.path, self.searched = path, a_star.get_searched()
+        self.searched_index = 0
+        self.color_searched()
+
+    def color_searched(self):
+        """After a search is performed, the searched grid squares (tk.Frame)
+        are colored accordingly, and the path returned is highlighted."""
+        if self.searched_index >= len(self.searched):
+            for node in self.path:
+                node.get_frm()["bg"] = PATH_COLOR
+            return
+        curr_frm = self.searched[self.searched_index]
+        self.searched_index += 1
+        curr_frm["bg"] = "white"
+        self.root.after(5, self.color_searched)
 
     def draw_clear_button(self, frame):
         """Creates the button for clearing the grid."""
