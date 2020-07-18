@@ -1,7 +1,7 @@
 # Search-Visualizer
 Required software: Python 3
 
-To run the program: run the file GUI.py, located in search_vis
+To run the program: run GUI.py, located in the 'search visualizer' directory
 
 This project aims to visualize how the A* pathfinding algorithm runs.
 I used the Manhattan distance heuristic, but I plan to add options for different
