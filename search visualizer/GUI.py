@@ -29,6 +29,7 @@ class GUI:
         frm_input = tk.Frame(master=self.root)
         self.draw_start_input(frm_input)
         self.draw_destination_input(frm_input)
+        self.draw_search_options(frm_input)
         self.draw_search_button(frm_input)
         self.draw_clear_button(frm_input)
         self.draw_position_tracker(frm_input)
@@ -100,11 +101,22 @@ class GUI:
         lbl_dest_y.pack(side=tk.LEFT)
         ent_dest_y.pack(side=tk.LEFT)
 
+    def draw_search_options(self, frame):
+        """Creates the dropdown menu for search algorithms."""
+        default_alg = tk.StringVar(frame)
+        default_alg.set('A* Search (Manhattan distance heuristic)')
+        algorithms = ['A* Search (Manhattan distance heuristic)',
+                    'A* Search (Euclidean distance heuristic)',
+                    'Uniform Cost Search']
+        alg_dropdown = tk.OptionMenu(frame, default_alg, *algorithms)
+        alg_dropdown.config(width=35)
+        alg_dropdown.pack(side=tk.LEFT, padx=(20, 0))
+
     def draw_search_button(self, frame):
         """Creates a button for starting the A* search."""
         btn_Astar = tk.Button(master=frame, text="Start Search",
             bg="#2f4454", fg="white", command=self.start_search)
-        btn_Astar.pack(side=tk.LEFT, padx=(20,0))
+        btn_Astar.pack(side=tk.LEFT, padx=(10,0))
 
     def start_search(self):
         """Performs the specified search algorithm. This is called when
