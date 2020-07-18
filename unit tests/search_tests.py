@@ -2,8 +2,7 @@ import os, sys
 import unittest
 import tkinter as tk
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath('node.py'))))
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath('search.py'))))
+sys.path.insert(1, '../search visualizer')
 from node import *
 from search import *
 

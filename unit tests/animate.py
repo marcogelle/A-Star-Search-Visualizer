@@ -1,7 +1,7 @@
-import os, sys
+import sys
 import tkinter as tk
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath('constants.py'))))
+sys.path.insert(1, '../search visualizer')
 from constants import *
 
 # This is just a test file I used to experiment with tkinter.after()

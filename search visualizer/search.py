@@ -1,6 +1,5 @@
 from enum import Enum
-from node import *
-from constants import SEARCH_COLOR
+import node
 
 class Heuristics():
     @staticmethod
@@ -35,9 +34,9 @@ class AStar(AbstractSearch):
         AbstractSearch.__init__(self, walls)
         self.heuristic = heuristic
 
-    def search(self, start: Node, dest: Node):
-        """Performs A* search from start to destination. Returns a path.
-        Updates self.searched."""
+    def search(self, start, dest):
+        """Performs A* search from start to destination (both Node objects).
+        Returns a path, which is a list of Nodes. Updates self.searched."""
         self.searched = []
 
         open = [start]
@@ -88,7 +87,7 @@ class AStar(AbstractSearch):
         return []
 
     def get_searched(self):
-        """Returns a list of nodes in the order they were inspected in
+        """Returns a list of tkinter Frames in the order they were inspected in
         the last call of self.search()."""
         return self.searched
 
