@@ -1,18 +1,15 @@
 from enum import Enum
 import node
 
-class Heuristics():
-    @staticmethod
-    def trivial(node, dest):
-        return 0
 
-    @staticmethod
-    def manhattan(node, dest):
-        return (abs(node.get_x() - dest.get_x()) + abs(node.get_y() - dest.get_y()))
+def trivial(node, dest):
+    return 0
 
-    @staticmethod
-    def euclidean(node, dest):
-        return ((node.get_x() - dest.get(x))**2 + (node.get_y() - dest.get_y())**2) ** 0.5
+def manhattan(node, dest):
+    return (abs(node.get_x() - dest.get_x()) + abs(node.get_y() - dest.get_y()))
+
+def euclidean(node, dest):
+    return ((node.get_x() - dest.get(x))**2 + (node.get_y() - dest.get_y())**2) ** 0.5
 
 class AbstractSearch:
     def __init__(self, walls):
