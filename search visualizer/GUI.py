@@ -59,9 +59,9 @@ class GUI:
         def draw_start():
             x, y = int(ent_start_x.get()), int(ent_start_y.get())
             node = self.node_map.get_from_pos(x, y)
-            node.get_frm()["bg"] = "red"
             if self.start_node:
                 self.start_node.get_frm()["bg"] = GRID_COLOR
+            node.get_frm()["bg"] = "red"
             self.start_node = node
 
         btn_start = tk.Button(master=frame, font="Helvetica 11 bold",
@@ -82,9 +82,9 @@ class GUI:
         def draw_dest():
             x, y = int(ent_dest_x.get()), int(ent_dest_y.get())
             node = self.node_map.get_from_pos(x, y)
-            node.get_frm()["bg"] = "green"
             if self.dest_node:
                 self.dest_node.get_frm()["bg"] = GRID_COLOR
+            node.get_frm()["bg"] = "green"
             self.dest_node = node
 
         lbl_dest = tk.Button(master=frame, font="Helvetica 11 bold",
@@ -102,7 +102,7 @@ class GUI:
 
     def draw_search_button(self, frame):
         """Creates a button for starting the A* search."""
-        btn_Astar = tk.Button(master=frame, text="Start A* Search",
+        btn_Astar = tk.Button(master=frame, text="Start Search",
             bg="#2f4454", fg="white", command=self.start_search)
         btn_Astar.pack(side=tk.LEFT, padx=(20,0))
 
