@@ -114,7 +114,7 @@ class GUI:
             self.root.after(5, color_searched)
 
         def start_search():
-            a_star = search.AStar(self.walls, search.Heuristics.manhattan)
+            a_star = search.AStar(self.walls, search.manhattan)
             path = a_star.search(self.start_node, self.dest_node)
             self.path, self.searched = path, a_star.get_searched()
             color_searched()
