@@ -103,25 +103,26 @@ class GUI:
 
     def draw_search_options(self, frame):
         """Creates the dropdown menu for search algorithms."""
-        default_alg = tk.StringVar(frame)
-        default_alg.set('A* Search (Manhattan distance heuristic)')
-        algorithms = ['A* Search (Manhattan distance heuristic)',
-                    'A* Search (Euclidean distance heuristic)',
-                    'Uniform Cost Search']
-        alg_dropdown = tk.OptionMenu(frame, default_alg, *algorithms)
+        self.curr_alg = tk.StringVar(frame) # default algorithm is A* manhattan
+        self.curr_alg.set('A* Search (Manhattan distance heuristic)')
+        self.algorithms = {'A* Search (Manhattan distance heuristic)':search.manhattan,
+                    'A* Search (Euclidean distance heuristic)':search.euclidean,
+                    'Uniform Cost Search':search.trivial}
+        alg_dropdown = tk.OptionMenu(frame, self.curr_alg, *self.algorithms.keys())
         alg_dropdown.config(width=35)
         alg_dropdown.pack(side=tk.LEFT, padx=(20, 0))
 
     def draw_search_button(self, frame):
         """Creates a button for starting the A* search."""
         btn_Astar = tk.Button(master=frame, text="Start Search",
-            bg="#2f4454", fg="white", command=self.start_search)
+            bg=BUTTON_COLOR, fg="white", command=self.start_search)
         btn_Astar.pack(side=tk.LEFT, padx=(10,0))
 
     def start_search(self):
         """Performs the specified search algorithm. This is called when
         the start search button is pressed."""
-        a_star = search.AStar(self.walls, search.manhattan)
+        heur_name = self.curr_alg.get()
+        a_star = search.AStar(self.walls, self.algorithms[heur_name])
         path = a_star.search(self.start_node, self.dest_node)
         self.path, self.searched = path, a_star.get_searched()
         self.searched_index = 0
@@ -152,7 +153,7 @@ class GUI:
             self.searched = []
 
         btn_clear = tk.Button(master=frame, text="Clear",
-            bg="#2f4454", fg="white", command=clear)
+            bg=BUTTON_COLOR, fg="white", command=clear)
         btn_clear.pack(side=tk.LEFT, padx=(10,0))
 
     def draw_position_tracker(self, frame):

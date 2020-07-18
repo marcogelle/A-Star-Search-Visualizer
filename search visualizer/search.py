@@ -93,4 +93,4 @@ def manhattan(node, dest):
     return (abs(node.get_x() - dest.get_x()) + abs(node.get_y() - dest.get_y()))
 
 def euclidean(node, dest):
-    return ((node.get_x() - dest.get(x))**2 + (node.get_y() - dest.get_y())**2) ** 0.5
+    return ((node.get_x() - dest.get_x())**2 + (node.get_y() - dest.get_y())**2) ** 0.5
