@@ -1,7 +1,4 @@
-# from heapq import heappush, heappop
 import node
-
-import pdb
 
 
 class AbstractSearch:
@@ -35,7 +32,7 @@ class AStar(AbstractSearch):
         closed = set()
         best_parents = {start: None}
         g = {start: 0}
-        
+
         # Key: node. Value: (f value, parent node)
         fringe = {start: (0 + self.heuristic(start, dest), None)}
 
