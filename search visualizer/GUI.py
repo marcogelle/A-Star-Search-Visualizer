@@ -104,10 +104,12 @@ class GUI:
     def draw_search_options(self, frame):
         """Creates the dropdown menu for search algorithms."""
         self.curr_alg = tk.StringVar(frame)
-        self.algorithms = {'A* Search (Manhattan distance heuristic)':search.manhattan,
-                    'A* Search (Euclidean distance heuristic)':search.euclidean,
-                    'Uniform Cost Search':search.trivial,
-                    'A* Search (inadmissible heuristic)':search.inadmissible}
+        self.algorithms = {'A* Search (Manhattan distance heuristic)': search.manhattan,
+                    'A* Search (Euclidean distance heuristic)': search.euclidean,
+                    'Uniform Cost Search (A* without heuristic)': search.trivial,
+                    'A* Search (double Manhattan)': search.inadmissible,
+                    'A* (Manhattan, with tie-breaking)': search.manhattan_tie_break,
+                    'A* (Euclidean, with tie-breaking)': search.euclidean_tie_break}
         self.curr_alg.set(next(iter(self.algorithms)))
         alg_dropdown = tk.OptionMenu(frame, self.curr_alg, *self.algorithms.keys())
         alg_dropdown.config(width=35)
