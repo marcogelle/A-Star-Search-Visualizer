@@ -2,6 +2,7 @@ import tkinter as tk
 
 import node
 import search
+import heuristics
 from constants import *
 
 class GUI:
@@ -104,11 +105,11 @@ class GUI:
     def draw_search_options(self, frame):
         """Creates the dropdown menu for search algorithms."""
         self.curr_alg = tk.StringVar(frame)
-        self.algorithms = {'A* Search (Manhattan distance heuristic)': search.manhattan,
-                    'A* Search (Euclidean distance heuristic)': search.euclidean,
-                    'Uniform Cost Search (A* without heuristic)': search.trivial,
-                    'A* Search (double Manhattan)': search.inadmissible,
-                    'A* Search (Exact heuristic)': search.exact_heur}
+        self.algorithms = {'A* Search (Manhattan distance heuristic)': heuristics.manhattan,
+                    'A* Search (Euclidean distance heuristic)': heuristics.euclidean,
+                    'Uniform Cost Search (A* without heuristic)': heuristics.trivial,
+                    'A* Search (double Manhattan)': heuristics.inadmissible,
+                    'A* Search (Exact heuristic)': heuristics.exact_heur}
         self.curr_alg.set(next(iter(self.algorithms)))
         alg_dropdown = tk.OptionMenu(frame, self.curr_alg, *self.algorithms.keys())
         alg_dropdown.config(width=35)
