@@ -7,6 +7,7 @@ class Node:
         self.x = x_coord
         self.y = y_coord
         self.map = node_map
+        self.wall = False
 
     def __hash__(self):
         return hash((self.get_x(), self.get_y()))
@@ -20,6 +21,16 @@ class Node:
     def __repr__(self):
         return f'Node({self.get_x()}, {self.get_y()})'
 
+    def wall_on(self):
+        self.wall = True
+
+    def wall_off(self):
+        self.wall = False
+
+    def is_wall(self):
+        """Returns True if this node is a wall."""
+        return self.wall
+
     def get_frm(self):
         return self.frm
 
@@ -29,19 +40,15 @@ class Node:
     def get_y(self):
         return self.y
 
-    def pos_str(self):
-        """Returns a string that represents this node's position on the grid."""
-        return f"{self.get_x()},{self.get_y()}"
-
     def get_succ(self):
         """Returns a list of a node's neighbors/successors. Starts with the
         top successor and goes clockwise. Does not show diagonal neighbors.
-        There are 4 successors total."""
+        There are up to 4 successors total."""
         x, y = self.get_x(), self.get_y()
         succ = []
         for [dx, dy] in [[0, 1], [1, 0], [0, -1], [-1, 0]]:
             next = self.map.get_from_pos(x + dx, y + dy)
-            if next:
+            if next and not next.is_wall():
                 succ.append(next)
         return succ
 

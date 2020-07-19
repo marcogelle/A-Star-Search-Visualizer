@@ -4,6 +4,8 @@ import node
 import search
 from constants import *
 
+from pdb import set_trace
+
 class GUI:
     """When a GUI instance is created, the GUI for this project is set up
     on the given tkinter window. A GUI also as a node_map containing node
@@ -107,7 +109,8 @@ class GUI:
         self.algorithms = {'A* Search (Manhattan distance heuristic)': search.manhattan,
                     'A* Search (Euclidean distance heuristic)': search.euclidean,
                     'Uniform Cost Search (A* without heuristic)': search.trivial,
-                    'A* Search (double Manhattan)': search.inadmissible}
+                    'A* Search (double Manhattan)': search.inadmissible,
+                    'A* Search (Exact heuristic)': search.exact_heur}
         self.curr_alg.set(next(iter(self.algorithms)))
         alg_dropdown = tk.OptionMenu(frame, self.curr_alg, *self.algorithms.keys())
         alg_dropdown.config(width=35)
@@ -124,7 +127,7 @@ class GUI:
         the start search button is pressed."""
         self.clear_searched()
         heur_name = self.curr_alg.get()
-        a_star = search.AStar(self.walls, self.algorithms[heur_name])
+        a_star = search.AStar(self.algorithms[heur_name])
         path = a_star.search(self.start_node, self.dest_node)
         self.path, self.searched = path, a_star.get_searched()
         self.searched_index = 0
@@ -135,7 +138,7 @@ class GUI:
         conducted. Uncolors the path and the searched nodes."""
         try:
             for s in self.searched:
-                if self.node_map.get(s) not in self.walls:
+                if not self.node_map.get(s).is_wall():
                     s["bg"] = GRID_COLOR
         except AttributeError:
             pass
@@ -159,10 +162,12 @@ class GUI:
                 w["bg"] = GRID_COLOR
             self.start_node = None
             self.dest_node = None
-            self.walls = set()
             self.searched_index = 0
             self.path = []
             self.searched = []
+            for w in self.walls:
+                w.wall_off()
+            self.walls = set()
 
         btn_clear = tk.Button(master=frame, text="Clear",
             bg=BUTTON_COLOR, fg="white", command=clear)
@@ -210,6 +215,7 @@ class GUI:
         grid_square["bg"] = WALL_COLOR
         node = self.node_map.get(grid_square)
         self.walls.add(node)
+        node.wall_on()
 
     def remove_wall(self, wall_square):
         """For a given wall_square (type tk.Frame), turn it to a normal grid
@@ -221,6 +227,7 @@ class GUI:
             self.walls.remove(node)
         except KeyError:
             pass
+        node.wall_off()
 
     def track_position(self, event):
         """Event handler that updates the current grid position in

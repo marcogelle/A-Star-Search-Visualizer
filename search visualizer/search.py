@@ -3,10 +3,6 @@ from constants import NUM_ROWS, NUM_COLS
 
 
 class AbstractSearch:
-    def __init__(self, walls):
-        """Tracks the walls as a set of Nodes."""
-        self.walls = walls
-
     def search(self, start, dest):
         """Finds and draws the shortest path from start (type Node) to the
         destination, dest (type Node). Returns a path. Should update
@@ -19,10 +15,10 @@ class AbstractSearch:
         pass
 
 class AStar(AbstractSearch):
-    def __init__(self, walls, heuristic):
+    def __init__(self, heuristic):
         """The heuristic should be a function that takes in two nodes and
         outputs a number."""
-        AbstractSearch.__init__(self, walls)
+        AbstractSearch.__init__(self)
         self.heuristic = heuristic
 
     def search(self, start, dest):
@@ -64,12 +60,11 @@ class AStar(AbstractSearch):
 
                 # Check each of the current node's successors
                 for succ in curr.get_succ():
-                    if succ not in self.walls:
-                        if succ not in closed:
-                            best_parents[succ] = curr
-                        g[succ] = g[curr] + 1
-                        f_val = g[succ] + self.heuristic(succ, dest)
-                        fringe[succ] = (f_val, curr)
+                    if succ not in closed:
+                        best_parents[succ] = curr
+                    g[succ] = g[curr] + 1
+                    f_val = g[succ] + self.heuristic(succ, dest)
+                    fringe[succ] = (f_val, curr)
 
         return []
 
@@ -90,3 +85,8 @@ def euclidean(node, dest):
 
 def inadmissible(node, dest):
     return 2 * manhattan(node, dest)
+
+def exact_heur(node, dest):
+    a_star = AStar(manhattan)
+    path = a_star.search(node, dest)
+    return len(path) + 1

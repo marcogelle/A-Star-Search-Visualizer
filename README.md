@@ -13,6 +13,8 @@ This project aims to visualize how the A* pathfinding algorithm runs and show th
 
 4. Double Manhattan: An inadmissible heuristic that returns double the Manhattan distance. This causes the A* search to degrade into a Greedy Breadth-First-Search algorithm. Less positions are checked, but finding the shortest path is not guaranteed.
 
+5. Exact Heuristic: An exact heuristic value is computed by running another A* search for the given grid position. This causes the runtime to be very slow, but it is interesting to see how an exact heuristic leads to exploring the least amount of grid positions while still being optimal.
+
 
 Controls:
 
