@@ -4,8 +4,6 @@ import node
 import search
 from constants import *
 
-from pdb import set_trace
-
 class GUI:
     """When a GUI instance is created, the GUI for this project is set up
     on the given tkinter window. A GUI also as a node_map containing node
