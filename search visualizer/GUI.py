@@ -52,7 +52,7 @@ class GUI:
                 frm.grid(row=r, column=c)
                 frm.bind("<Button-1>", self.handle_click)
                 frm.bind("<B1-Motion>", self.handle_drag)
-                frm.bind("<Enter>", lambda event: self.track_position(event))
+                frm.bind("<Enter>", self.track_position)
                 self.node_map.add(node.Node(frm, c, NUM_ROWS-r-1, self.node_map))
         frm_grid.pack()
 
