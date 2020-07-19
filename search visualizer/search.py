@@ -90,7 +90,3 @@ def euclidean(node, dest):
 
 def inadmissible(node, dest):
     return 2 * manhattan(node, dest)
-
-def manhattan_tie_break(node, dest):
-    p = 1 / (NUM_ROWS * NUM_COLS)
-    return manhattan(node, dest) * (1.0 + p)

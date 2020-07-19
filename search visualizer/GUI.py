@@ -107,8 +107,7 @@ class GUI:
         self.algorithms = {'A* Search (Manhattan distance heuristic)': search.manhattan,
                     'A* Search (Euclidean distance heuristic)': search.euclidean,
                     'Uniform Cost Search (A* without heuristic)': search.trivial,
-                    'A* Search (double Manhattan)': search.inadmissible,
-                    'A* (Manhattan, with tie-breaking)': search.manhattan_tie_break}
+                    'A* Search (double Manhattan)': search.inadmissible}
         self.curr_alg.set(next(iter(self.algorithms)))
         alg_dropdown = tk.OptionMenu(frame, self.curr_alg, *self.algorithms.keys())
         alg_dropdown.config(width=35)

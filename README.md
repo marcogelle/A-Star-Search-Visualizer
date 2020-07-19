@@ -13,8 +13,6 @@ This project aims to visualize how the A* pathfinding algorithm runs and show th
 
 4. Double Manhattan: An inadmissible heuristic that returns double the Manhattan distance. This causes the A* search to degrade into a Greedy Breadth-First-Search algorithm. Less positions are checked, but finding the shortest path is not guaranteed.
 
-5. Tie-breaking Manhattan: A small number is added to the Manhattan heuristic evaluation in order to break ties. This makes the algorithm explore much less grid positions than the non-tie-breaking version, especially when obstacles/walls are present. However, this does make the heuristic inadmissible in some cases, causing a sub-optimal path to be returned occasionally.
-
 
 Controls:
 
