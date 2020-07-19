@@ -1,4 +1,5 @@
 import node
+import data_structs
 
 
 class AbstractSearch:
@@ -29,15 +30,13 @@ class AStar(AbstractSearch):
         best_parents = {start: None}
         g = {start: 0}
 
-        # Key: node. Value: (f value, parent node)
-        fringe = {start: (0 + self.heuristic(start, dest), None)}
+        # Items: (node, parent). Priority: f value
+        fringe = data_structs.PriorityQueue()
+        fringe.push((start, None), 0 + self.heuristic(start, dest))
 
-        while fringe:
+        while not fringe.isEmpty():
             # Get node with min f from fringe
-            get_f = lambda fringe_item: fringe_item[1][0]
-            curr, temp = min(fringe.items(), key=get_f)
-            curr_parent = temp[1]
-            del fringe[curr]
+            curr, curr_parent = fringe.pop()
 
             # Destination is reached
             if curr is dest:
@@ -63,7 +62,7 @@ class AStar(AbstractSearch):
                         best_parents[succ] = curr
                     g[succ] = g[curr] + 1
                     f_val = g[succ] + self.heuristic(succ, dest)
-                    fringe[succ] = (f_val, curr)
+                    fringe.push((succ, curr), f_val)
 
         return []
 
