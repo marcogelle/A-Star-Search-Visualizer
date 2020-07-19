@@ -5,7 +5,7 @@ To run the program: run GUI.py, located in the 'search visualizer' directory
 
 This project aims to visualize how the A* pathfinding algorithm runs and show the effects of different heuristics. The user is able to choose a starting position on the grid, a desired goal position, draw obstacles, choose a heuristic, and run the A* search algorithm to find a path from the start to the goal. In the current version, the user has four options for the heuristic:
 
-1. Manhattan distance: The Manhattan distance performs comparatively well. It is consistent, ensuring optimality/finding the shortest path. Compared to the other consistent heuristics, it checks the least amount of states/grid positions, making it the most efficient.
+1. Manhattan distance: The Manhattan distance performs comparatively well. It is consistent, ensuring optimality/finding the shortest path. Compared to the other consistent heuristics, it checks a low amount of states/grid positions, making it the efficient.
 
 2. Euclidean distance: Another consistent heuristic. However, it checks more unnecessary grid positions than the Manhattan heuristic, since the Manhattan distance is always greater than or equal to the Euclidean distance.
 
