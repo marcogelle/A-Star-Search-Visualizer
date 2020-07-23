@@ -1,7 +1,7 @@
 # A* Search Visualizer
 Required software: Python 3
 
-To run the program: run GUI.py, located in the 'search visualizer' directory
+To run the program: cd into 'search visualizer' directory, then run GUI.py
 
 This project aims to visualize how the A* pathfinding algorithm runs and show the effects of different heuristics. The user is able to choose a starting position on the grid, a desired goal position, draw obstacles, choose a heuristic, and run the A* search algorithm to find a path from the start to the goal. This visualizer supports the following heuristics:
 
