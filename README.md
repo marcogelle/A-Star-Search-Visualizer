@@ -1,4 +1,8 @@
 # A* Search Visualizer
+
+See a demo: open searchDemo.gif
+
+
 Required software: Python 3
 
 To run the program: cd into 'search visualizer' directory, then run GUI.py
